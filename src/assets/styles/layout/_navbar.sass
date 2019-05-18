@@ -1,0 +1,43 @@
+.navbar
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 2em 3.125em
+  box-shadow: 0 3px 16px rgba(0,0,0,0.1)
+
+  &__logo
+    height: 66px
+    width: 50px
+    display: flex
+    align-items: center
+
+    > img
+      width: 100%
+
+  &__button-group
+    box-shadow: 0 3px 16px rgba(0,0,0,0.1)
+    border-radius: 2em
+
+    > button
+      font-size: 1.25em
+      padding: .75em 0
+      width: 16em
+      border: none
+      background-color: #F4F4F4
+      border: 1px solid #DBDBDB
+
+      &.--active
+        background-color: #E74C3C
+        border-color: #E74C3C
+        color: white
+
+      &.--muted
+        background-color: white
+        opacity: .2
+        cursor: disabled
+    
+      &:nth-child(1)
+        border-radius: 2em 0 0 2em
+
+      &:last-child
+        border-radius: 0 2em 2em 0
