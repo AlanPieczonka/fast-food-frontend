@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Parse from './config/parse';
+import Layout from './Layout';
 
-class App extends Component {
+export default class App extends Component {
   state = {
     products: []
   }
@@ -17,12 +18,6 @@ class App extends Component {
   }
 
   render() {
-    const { products } = this.state
-    const PRODUCTS = products.map(product => <div key={product.id}>{product.get('displayName')}</div>)
-    return products.length
-      ? PRODUCTS
-      : "No products yet..."
+    return <Layout />
   }
 }
-
-export default App;
