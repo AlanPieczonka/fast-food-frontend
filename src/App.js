@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Parse from './config/parse';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  static state = {
+    products: []
+  }
+
+  componentDidMount() {
+    this.fetchProducts()
+  }
+
+  fetchProducts = async () => {
+    const query = new Parse.Query('Products');
+    const products = await query.find()
+    this.setState({products})
+  }
+
+  render() {
+    const { products } = this.state
+    const PRODUCTS = products.map(product => <div key={product.id}>{product.get('displayName')}</div>)
+    return products.length
+      ? PRODUCTS
+      : "No products yet..."
+  }
 }
 
 export default App;
