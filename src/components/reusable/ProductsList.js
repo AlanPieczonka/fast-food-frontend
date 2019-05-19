@@ -19,7 +19,7 @@ export default class ProductsList extends Component {
   render() {
     const { products } = this.state
     const PRODUCTS_LIST = products.length
-      ? products.map(product => <div>{product.get('displayName')}</div>)
+      ? products.map(product => <div key={product.id}>{product.get('displayName')}</div>)
       : "Loading..."
     return PRODUCTS_LIST
   }
