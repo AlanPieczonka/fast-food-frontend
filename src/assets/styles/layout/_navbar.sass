@@ -1,12 +1,15 @@
 .navbar
+  position: relative
   display: flex
   align-items: center
   justify-content: space-between
-  padding: 2em 3.125em
-  box-shadow: 0 3px 16px rgba(0,0,0,0.1)
+  padding: $m-3 $m-5
+  box-shadow: 0 3px $m-3 rgba(0,0,0,0.1)
+  min-width: 1024px
+  background-color: $color-white
+  z-index: $navbar-zindex
 
   &__logo
-    height: 66px
     width: 50px
     display: flex
     align-items: center
@@ -14,27 +17,44 @@
     > img
       width: 100%
 
+  &__menu
+    width: $m-3
+    height: $m-3
+    
+    &:hover
+      cursor: pointer
+
   &__button-group
     box-shadow: 0 3px 16px rgba(0,0,0,0.1)
     border-radius: 2em
 
     > button
-      font-size: 1.25em
-      padding: .75em 0
+      font-size: $text-size-normal
+      padding: $m-25 0
       width: 16em
       border: none
-      background-color: #F4F4F4
-      border: 1px solid #DBDBDB
+      background-color: $color-gray-100
+      border: 1px solid $color-gray-90
+      transition: background .2s ease
+
+      &:hover
+        cursor: pointer
+        background-color: darken($color-gray-100, 10%)
 
       &.--active
         background-color: #E74C3C
         border-color: #E74C3C
         color: white
 
+        &:hover
+          background-color: darken($color-primary, 10%)
+
       &.--muted
         background-color: white
         opacity: .2
-        cursor: disabled
+        
+        &:hover
+          cursor: not-allowed
     
       &:nth-child(1)
         border-radius: 2em 0 0 2em

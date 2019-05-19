@@ -1,0 +1,47 @@
+.sidebar
+  position: relative
+  width: 22rem
+  background-color: $color-white
+  height: calc(100vh - #{$navbar-height})
+  box-shadow: 0 3px $m-3 rgba(0,0,0,0.1)
+  z-index: $sidebar-zindex
+
+  &__heading
+    margin: 0
+    font-size: $text-size-normal
+    font-weight: $font-thin
+    text-align: center
+    padding: 1rem
+    border-bottom: 1px solid $color-gray-100
+
+  &__basket
+
+  &__footer
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+
+  &__summary
+    display: flex
+    justify-content: space-between
+    border-top: 1px solid $color-gray-90
+    padding: $m-3 $m-2
+
+  &__submit
+    padding: $m-3 $m-4
+    border-top: 1px solid $color-gray-90
+
+    > button
+      padding: $m-25 0
+      width: 100%
+      color: $color-white
+      background-color: $color-primary
+      transition: background .2s ease
+      border-radius: 2rem
+      font-size: $text-size-normal
+      border: none
+
+      &:hover
+        background-color: darken($color-primary, 10%)
+        cursor: pointer
