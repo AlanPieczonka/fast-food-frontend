@@ -16,7 +16,7 @@ export default class Sidebar extends Component {
               <div className="p-card__footer">
                 <span className="p-card__quantity">
                   <input type="submit" value="-"/>
-                  <input type="text" />
+                  <input type="text" value="1"/>
                   <input type="submit" value="+"/>
                 </span>
                 <span className="p-card__price">31.95 zł</span>
