@@ -4,13 +4,16 @@ import './assets/styles/main.sass';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { Provider } from 'react-redux';
+import { ApolloProvider } from "react-apollo";
+import { createClient } from "./config/apollo";
 import store from './store'
 
+const client = createClient()
+
 ReactDOM.render(
-    <Provider store={store}>
+    <ApolloProvider store={store} client={client}>
         <App />
-    </Provider>, document.getElementById('root')
+    </ApolloProvider>, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

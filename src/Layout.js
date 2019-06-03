@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react'
+
 import Navbar from './components/layout/Navbar'
-import ProductsList from './components/reusable/ProductsList'
 import Sidebar from './components/layout/Sidebar'
+import Content from './components/layout/Content'
+import Checkout from './components/pages/Checkout'
 
 export default class Layout extends Component {
   render() {
@@ -9,7 +11,9 @@ export default class Layout extends Component {
       <Fragment>
         <Navbar />
         <Sidebar />
-        <ProductsList />
+        <Content>
+          <Checkout />
+        </Content>
       </Fragment>
     )
   }
