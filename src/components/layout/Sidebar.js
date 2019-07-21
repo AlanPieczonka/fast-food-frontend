@@ -15,9 +15,9 @@ export default class Sidebar extends Component {
 
               <div className="p-card__footer">
                 <span className="p-card__quantity">
-                  <input type="submit" value="-"/>
-                  <input type="text" value="1"/>
-                  <input type="submit" value="+"/>
+                  <input type="submit" value="-" onChange={() => {}} />
+                  <input type="text" value="1" onChange={() => {}} />
+                  <input type="submit" value="+" onChange={() => {}} />
                 </span>
                 <span className="p-card__price">31.95 zł</span>
               </div>
