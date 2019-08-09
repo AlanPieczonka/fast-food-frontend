@@ -15,7 +15,7 @@ const initialProducts = [
 
 export default function Sidebebar () {
   const [products, setProducts] = useState(initialProducts)
-  const sum = products.map(({ price, quantity }) => price * quantity).reduce((x, y) => x + y).toFixed(2)
+  const sum = products.length ? products.map(({ price, quantity }) => price * quantity).reduce((x, y) => x + y).toFixed(2) : 0
 
   return (
     <div className="sidebar">
@@ -53,6 +53,9 @@ export default function Sidebebar () {
                     }}
                   />
                 </span>
+                <input type="submit" value="X" onClick={() => {
+                  setProducts(products.filter((product) => product.name !== name))
+                }}/>
                 <span className="p-card__price">{price} zł</span>
               </div>
             </div>
