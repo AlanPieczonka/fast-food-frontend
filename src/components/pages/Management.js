@@ -5,8 +5,14 @@ import ProductsList from '../reusable/ProductsList'
 
 const Management = () => (
   <Content>
-    <div className='checkout'>
-      Products management
+    <div className="management">
+      <div className="management__toolbar">
+        <button className="management__toolbar-button">Add a new product</button>
+      </div>
+
+      <div className="management__products">
+        <ProductsList type="management" />
+      </div>
     </div>
   </Content>
 )
