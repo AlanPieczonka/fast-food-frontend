@@ -57,17 +57,26 @@ export default function Sidebebar () {
                 <span className="p-card__quantity">
                   <input 
                     type="submit" 
-                    value="-" 
+                    value="-"
+                    readOnly
                     onClick={lowerProductQuantity(index)} 
                   />
-                  <input type="text" value={quantity} disabled/>
+
+                  <input
+                    type="text"
+                    value={quantity}
+                    disabled
+                    readOnly
+                  />
+
                   <input 
                     type="submit" 
-                    value="+" 
+                    value="+"
+                    readOnly
                     onClick={increaseProductQuantity(index)}
                   />
                 </span>
-                <input type="submit" value="X" onClick={removeProduct(index)}/>
+                <input type="submit" value="X" readOnly onClick={removeProduct(index)}/>
                 <span className="p-card__price">{price} zł</span>
               </div>
             </div>

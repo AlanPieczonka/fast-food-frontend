@@ -22,7 +22,7 @@ export default () => (
       if (error) return `Error! ${error}`;
 
       return data.products.map(({ name, price, thumbnailUrl }) => (
-        <div className="p-card --border-bottom">
+        <div key={name} className="p-card --border-bottom">
           <img className="p-card__thumbnail" src={thumbnailUrl} alt="Product Thumbnail" />
           
           <div className="p-card__content">
@@ -30,9 +30,23 @@ export default () => (
 
             <div className="p-card__footer">
               <span className="p-card__quantity">
-                <input type="submit" value="-"/>
-                <input type="text" value="1"/>
-                <input type="submit" value="+"/>
+                <input 
+                  type="submit"
+                  value="-"
+                  readOnly
+                />
+
+                <input 
+                  type="text"
+                  value="1"
+                  readOnly
+                />
+
+                <input 
+                  type="submit"
+                  value="+"
+                  readOnly
+                />
               </span>
               <span className="p-card__price">{price} zł</span>
             </div>
