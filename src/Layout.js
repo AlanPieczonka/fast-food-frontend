@@ -1,20 +1,23 @@
 import React, { Component, Fragment } from 'react'
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import Navbar from './components/layout/Navbar'
-import Sidebar from './components/layout/Sidebar'
 import Content from './components/layout/Content'
 import Checkout from './components/pages/Checkout'
+import Management from './components/pages/Management'
 
 export default class Layout extends Component {
   render() {
     return (
-      <Fragment>
+      <Router>
         <Navbar />
-        <Sidebar />
-        <Content>
-          <Checkout />
-        </Content>
-      </Fragment>
+        
+        <Switch>
+          <Route path="/" exact render={Checkout} />
+          <Route path="/management" render={Management} />
+        </Switch>
+      </Router>
     )
   }
 }
