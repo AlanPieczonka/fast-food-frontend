@@ -1,9 +1,14 @@
 import React from 'react'
 
+import Content from '../layout/Content'
 import ProductsList from '../reusable/ProductsList'
 
-export default () => (
-  <div className='checkout'>
-    Products management
-  </div>
+const Management = () => (
+  <Content>
+    <div className='checkout'>
+      Products management
+    </div>
+  </Content>
 )
+
+export default Management
