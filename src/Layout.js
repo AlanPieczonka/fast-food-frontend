@@ -14,8 +14,8 @@ export default class Layout extends Component {
         <Navbar />
         
         <Switch>
-          <Route path="/" exact render={Checkout} />
-          <Route path="/management" render={Management} />
+          <Route path="/" exact component={Checkout} />
+          <Route path="/management" component={Management} />
         </Switch>
       </Router>
     )
