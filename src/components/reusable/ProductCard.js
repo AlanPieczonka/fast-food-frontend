@@ -4,7 +4,7 @@ const toggleEditMode = index => () => {}
 
 const removeProduct = id => () => {}
 
-const ProductCard = ({ name, thumbnailUrl, price, id }, index) => (
+const ProductCard = ({ name, thumbnailUrl, price, id, description }, index) => (
   <div key={name} className="p-card">
     <div className="p-card__toolbar">
       <button
@@ -26,6 +26,8 @@ const ProductCard = ({ name, thumbnailUrl, price, id }, index) => (
     
     <div className="p-card__content">
       <h2 className="p-card__heading">{name}</h2>
+
+      <p className="p-card__description">{description}</p>
 
       <div className="p-card__footer">
         <span className="p-card__price">{price} zł</span>
