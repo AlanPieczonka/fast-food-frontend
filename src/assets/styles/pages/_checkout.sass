@@ -1,3 +1,5 @@
+$checkoutNavHeight: 56px
+  
 .checkout
   background-color: white
   height: 100%
@@ -5,16 +7,18 @@
   &__nav
     padding: 0 $m-4
     display: flex
+    border-top: 1px solid transparent
     border-bottom: 1px solid $color-gray-100
 
   &__nav-item
-    padding: $m-3 0
-    margin-right: $m-55
+    padding: $m-3 $m-3
+    margin-right: $m-4
     font-size: 1rem
     color: $color-gray-50
     border: 2px solid transparent
     cursor: pointer
     transition: border .3s ease-out
+    outline: none
 
     &.-active
       color: $color-dark
@@ -22,4 +26,5 @@
 
   &__products
     padding: $m-3 $m-4
-
+    overflow-y: scroll
+    height: calc(100% - #{$checkoutNavHeight})    

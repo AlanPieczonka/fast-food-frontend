@@ -9,7 +9,7 @@ const CheckoutProducts = () => {
 
   return (
     <div className="checkout__products">
-      <div className="grid -two">{PRODUCTS_MAP}</div>;
+      <div className="grid -two">{PRODUCTS_MAP}</div>
     </div>
   );
 };
