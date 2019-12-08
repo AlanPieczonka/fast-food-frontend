@@ -1,10 +1,12 @@
 .p-listing
   display: flex
   padding: $m-3 $m-2
-  box-shadow: 0 2px 6px $color-gray-90
+  @include themify
+    box-shadow: 0 2px 6px themed('borderSubtleColor')
 
   &.-border-bottom
-    border-bottom: 1px solid $color-gray-100
+    @include themify
+      border-bottom: 1px solid themed('borderSubtleColor')
 
   &__thumbnail
     flex-shrink: 0

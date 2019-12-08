@@ -6,8 +6,10 @@
   padding: $m-3 $m-5
   box-shadow: 0 3px $m-3 rgba(0,0,0,0.1)
   min-width: 1024px
-  background-color: $color-white
   z-index: $navbar-zindex
+
+  @include themify
+    background-color: themed('navbarBg')
 
   &__logo
     width: 50px
@@ -28,6 +30,9 @@
     display: flex
     box-shadow: 0 3px 16px rgba(0,0,0,0.1)
     border-radius: 2em
+    position: absolute
+    left: 50%
+    transform: translateX(-50%)
 
     > a, button
       text-align: center
@@ -66,3 +71,10 @@
 
       &:last-child
         border-radius: 0 2em 2em 0
+
+  &__right
+    display: flex
+    align-items: center
+
+  &__switch
+    margin-right: $m-4

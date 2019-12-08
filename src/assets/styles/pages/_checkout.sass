@@ -1,7 +1,8 @@
 $checkoutNavHeight: 56px
   
 .checkout
-  background-color: white
+  @include themify
+    background-color: themed('navbarBg')
   height: 100%
 
   &__nav
