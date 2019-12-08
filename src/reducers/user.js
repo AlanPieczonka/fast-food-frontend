@@ -1,10 +1,19 @@
-import { USER_LOGGED_IN } from '../types'
+import { TOGGLE_USER_THEME } from "../types";
 
-// temporary, made up example
-export default function (state = {}, action) {
+const initialState = {
+  theme: "dark"
+};
+
+export default function(state = initialState, action) {
   switch (action.type) {
-    case USER_LOGGED_IN:
-      return { ...state };
+    case TOGGLE_USER_THEME: {
+      const theme = state.theme === "dark" ? "light" : "dark";
+
+      return {
+        ...state,
+        theme
+      };
+    }
     default:
       return state;
   }
