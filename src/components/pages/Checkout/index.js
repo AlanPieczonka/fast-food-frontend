@@ -2,9 +2,10 @@ import React from "react";
 
 import { Socket } from "phoenix";
 
-import Sidebar from "../layout/Sidebar";
-import Content from "../layout/Content";
-import ProductList from "../reusable/ProductList";
+import Sidebar from "../../layout/Sidebar";
+import Content from "../../layout/Content";
+import CheckoutProducts from "./CheckoutProducts";
+import CheckoutNavigation from "./CheckoutNavigation";
 
 export default () => {
   return (
@@ -13,9 +14,9 @@ export default () => {
 
       <Content>
         <div className="checkout">
-          <div className="checkout__products">
-            <ProductList />
-          </div>
+          <CheckoutNavigation />
+
+          <CheckoutProducts />
         </div>
       </Content>
     </>

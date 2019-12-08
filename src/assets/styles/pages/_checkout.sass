@@ -1,4 +1,25 @@
 .checkout
-  padding: $m-3
   background-color: white
   height: 100%
+
+  &__nav
+    padding: 0 $m-4
+    display: flex
+    border-bottom: 1px solid $color-gray-100
+
+  &__nav-item
+    padding: $m-3 0
+    margin-right: $m-55
+    font-size: 1rem
+    color: $color-gray-50
+    border: 2px solid transparent
+    cursor: pointer
+    transition: border .3s ease-out
+
+    &.-active
+      color: $color-dark
+      border-bottom-color: $color-dark
+
+  &__products
+    padding: $m-3 $m-4
+
