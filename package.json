@@ -3,29 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/react-hooks": "^3.1.1",
-    "apollo-boost": "^0.4.0",
-    "apollo-client": "^2.6.0",
     "formik": "^1.5.8",
-    "graphql": "0.13.0",
-    "graphql-tag": "^2.10.1",
     "node-sass": "^4.12.0",
     "parse": "^2.4.0",
+    "phoenix": "^1.4.10",
     "react": "^16.8.6",
-    "react-apollo": "^2.5.6",
-    "react-apollo-hooks": "^0.5.0",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.9",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "redux": "^4.0.1",
-    "redux-saga": "^1.0.2"
+    "redux-saga": "^1.0.2",
+    "storybook-react-router": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@storybook/react": "^5.2.1",
     "redux-devtools-extension": "^2.13.8"
   }
 }

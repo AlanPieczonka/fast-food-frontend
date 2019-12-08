@@ -1,19 +1,23 @@
 import React from 'react'
 
+import { Socket } from 'phoenix'
+
 import Sidebar from '../layout/Sidebar'
 import Content from '../layout/Content'
-import ProductsList from '../reusable/ProductsList'
+import ProductList from '../reusable/ProductList'
 
-export default () => (
-  <>
-    <Sidebar />
-    
-    <Content>
-      <div className='checkout'>
-        <div className='checkout__products'>
-          <ProductsList />
+export default () => {  
+  return (
+    <>
+      <Sidebar />
+      
+      <Content>
+        <div className='checkout'>
+          <div className='checkout__products'>
+            <ProductList />
+          </div>
         </div>
-      </div>
-    </Content>
-  </>
-)
+      </Content>
+    </>
+  )
+}

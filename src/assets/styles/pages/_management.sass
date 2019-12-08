@@ -20,4 +20,19 @@
       color: white
       font-size: 1rem
       cursor: pointer
+
+      &.--loading
+        opacity: .5
+        cursor: disabled
+
+      &.--stacked
+        margin-top: 1rem
+    
+    &-button-loader
+      font-size: 1rem
+      height: 1rem
+
+  &__products
+    height: calc(100% - 6rem - 1px)
+    overflow-y: scroll
   
