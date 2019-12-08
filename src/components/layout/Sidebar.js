@@ -49,12 +49,12 @@ export default function Sidebebar () {
 
       {products.map(({ name, quantity, price }, index) => (
         <div className="sidebar__basket" key={name}>
-          <div className="p-card --border-bottom">
-            <img className="p-card__thumbnail" src="https://placehold.it/100x100" alt="Product Thumbnail" />
-            <div className="p-card__content">
-              <h2 className="p-card__heading">{name}</h2>
-              <div className="p-card__footer">
-                <span className="p-card__quantity">
+          <div className="p-listing --border-bottom">
+            <img className="p-listing__thumbnail" src="https://placehold.it/100x100" alt="Product Thumbnail" />
+            <div className="p-listing__content">
+              <h2 className="p-listing__heading">{name}</h2>
+              <div className="p-listing__footer">
+                <span className="p-listing__quantity">
                   <input 
                     type="submit" 
                     value="-"
@@ -77,7 +77,7 @@ export default function Sidebebar () {
                   />
                 </span>
                 <input type="submit" value="X" readOnly onClick={removeProduct(index)}/>
-                <span className="p-card__price">{price} zł</span>
+                <span className="p-listing__price">{price} zł</span>
               </div>
             </div>
           </div>

@@ -1,0 +1,60 @@
+.p-listing
+  display: flex
+  padding: $m-3 $m-2
+  box-shadow: 0 2px 6px $color-gray-90
+
+  &.-border-bottom
+    border-bottom: 1px solid $color-gray-100
+
+  &__thumbnail
+    flex-shrink: 0
+    width: 75px
+    height: 75px
+    border-radius: 10px
+    border: 1px solid $color-gray-100
+
+  &__content
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+  &__heading
+    margin: 0
+    padding: 0 $m-3
+    font-size: $text-size-normal
+    font-weight: $font-thin
+
+  &__footer
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0 $m-3
+
+  &__price
+    color: $color-gray-30
+
+  &__quantity
+    display: flex
+    > input
+      display: block
+      width: 3em
+      max-height: 25px
+      padding: 4px
+      margin: 0
+      text-align: center
+      border: 1px solid $color-gray-90
+      
+      &:first-child
+        border-right: none
+        border-radius: 1rem 0 0 1rem 
+
+      &:last-child
+        border-left: none
+        border-radius: 0 1rem 1rem 0
+
+      &:first-child, &:last-child
+        transition: background .3s ease
+        &:hover
+          cursor: pointer
+          background-color: $color-gray-100

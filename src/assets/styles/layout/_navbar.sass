@@ -25,21 +25,26 @@
       cursor: pointer
 
   &__button-group
+    display: flex
     box-shadow: 0 3px 16px rgba(0,0,0,0.1)
     border-radius: 2em
 
-    > button
+    > a, button
+      text-align: center
+      text-decoration: none
+      color: $color-gray-30
       font-size: $text-size-normal
       padding: $m-25 0
       width: 16em
       border: none
       background-color: $color-gray-100
       border: 1px solid $color-gray-90
-      transition: background .2s ease
+      transition: background .1s ease
 
       &:hover
         cursor: pointer
         background-color: darken($color-gray-100, 10%)
+        border: 1px solid darken($color-gray-100, 15%)
 
       &.--active
         background-color: #E74C3C

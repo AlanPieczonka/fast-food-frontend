@@ -1,19 +1,23 @@
 import React from 'react'
 
+import { NavLink } from 'react-router-dom'
+
 export default function BurgerIcon() {
+  const canAccessManagement = true
+
   return (
     <div className="navbar__button-group">
-      <button className="--active">
+      <NavLink to='/' exact activeClassName="--active">
         Checkout
-      </button>
+      </NavLink>
 
-      <button>
+      <NavLink to='/orders' activeClassName="--active">
         Orders
-      </button>
+      </NavLink>
 
-      <button className="--muted">
+      <NavLink to='/management' className={`${!canAccessManagement && '--muted'}`} activeClassName="--active">
         Management
-      </button>
+      </NavLink>
     </div>
   )
 }
