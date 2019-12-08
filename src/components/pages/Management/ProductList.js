@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import List from "../../reusable/ProductList";
 
 const ProductList = () => (
   <>
@@ -13,9 +12,7 @@ const ProductList = () => (
       </div>
     </div>
 
-    <div className="management__products">
-      <List type="management" />
-    </div>
+    <div className="management__products"></div>
   </>
 );
 
