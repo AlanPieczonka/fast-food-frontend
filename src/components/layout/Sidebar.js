@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import CloseIcon from "../../assets/icons/Close";
+import IconClose from "../../assets/icons/Close";
 
 const initialProducts = [
   {
@@ -70,7 +70,7 @@ export default function Sidebebar() {
                   className="p-listing__remove"
                   onClick={removeProduct(index)}
                 >
-                  <CloseIcon />
+                  <IconClose />
                 </button>
               </div>
               <div className="p-listing__footer">

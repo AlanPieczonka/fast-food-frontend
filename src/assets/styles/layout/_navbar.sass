@@ -60,7 +60,8 @@
           color: themed('colorSecondary')
 
         &:hover
-          background-color: darken($color-primary, 10%)
+          @include themify
+            background-color: darken(themed('colorPrimary'), 10%)
 
       &.--muted
         background-color: white
