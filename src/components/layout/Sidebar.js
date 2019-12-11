@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import CloseIcon from "../../assets/icons/Close";
+
 const initialProducts = [
   {
     name: "Bourbon BBQ Grander Box",
@@ -60,7 +62,17 @@ export default function Sidebebar() {
               alt="Product Thumbnail"
             />
             <div className="p-listing__content">
-              <h2 className="p-listing__heading">{name}</h2>
+              <div className="p-listing__heading-wrapper">
+                <h2 className="p-listing__heading">{name}</h2>
+
+                <button
+                  value="X"
+                  className="p-listing__remove"
+                  onClick={removeProduct(index)}
+                >
+                  <CloseIcon />
+                </button>
+              </div>
               <div className="p-listing__footer">
                 <span className="p-listing__quantity">
                   <input
@@ -79,12 +91,7 @@ export default function Sidebebar() {
                     onClick={increaseProductQuantity(index)}
                   />
                 </span>
-                <input
-                  type="submit"
-                  value="X"
-                  readOnly
-                  onClick={removeProduct(index)}
-                />
+
                 <span className="p-listing__price">{price} zł</span>
               </div>
             </div>
