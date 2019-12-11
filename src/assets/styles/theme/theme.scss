@@ -16,7 +16,12 @@ $themes: (
     buttonTextPrimary: white,
     buttonColorPrimary: #e74c3c,
     sidebarTextColor: #212121,
-    borderSubtleColor: #f4f4f4
+    borderSubtleColor: #f4f4f4,
+    contentBg: #ededed,
+    navbarButtonBg: #f4f4f4,
+    navbarButtonBorder: #ededed,
+    navbarButtonActiveBg: #e74c3c,
+    navbarButtonActiveBorder: #e74c3c
   ),
   dark: (
     colorPrimary: #e74c3c,
@@ -24,18 +29,15 @@ $themes: (
     colorWhite: #212121,
     colorInfo: #039be5,
     colorDanger: #e53935,
-    colorGray100: #f4f4f4,
-    colorGray90: #ededed,
-    colorGray80: #dddddd,
-    colorGray50: #adadad,
-    colorGray30: #626262,
-    colorDark: #212121,
-    colorBg: #212121,
-    navbarBg: #313131,
-    buttonTextPrimary: #212121,
-    buttonColorPrimary: #e74c3c,
-    sidebarTextColor: #f4f4f4,
-    borderSubtleColor: #212121
+    borderColorStrongest: #f0f1f3,
+    borderColorStronger: #343640,
+    borderColorStrong: #25272f,
+    textColorStrongest: #f0f1f3,
+    textColorStronger: #aaacad,
+    textColorStrong: #65676c,
+    bgColorStrongest: #12151b,
+    bgColorStronger: #1c1e24,
+    bgColorStrong: #25272f
   )
 );
 

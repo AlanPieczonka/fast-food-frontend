@@ -7,8 +7,8 @@
   z-index: $sidebar-zindex
   float: left
   @include themify
-    background-color: themed('navbarBg')
-    color: themed('sidebarTextColor')
+    background-color: themed('bgColorStrongest')
+    color: themed('textColorStronger')
 
   &__heading
     margin: 0
@@ -17,7 +17,7 @@
     text-align: center
     padding: 1rem
     @include themify
-      border-bottom: 1px solid themed('borderSubtleColor')
+      border-bottom: 1px solid themed('borderColorStrong')
 
   &__footer
     position: absolute
@@ -30,22 +30,9 @@
     justify-content: space-between
     padding: $m-3 $m-2
     @include themify
-      border-top: 1px solid themed('borderSubtleColor')
+      border-top: 1px solid themed('borderColorStrong')
 
   &__submit
     padding: $m-3 $m-4
-    border-top: 1px solid $color-gray-90
-
-    > button
-      padding: $m-25 0
-      width: 100%
-      color: $button-text-primary
-      background-color: $button-color-primary
-      transition: background .2s ease
-      border-radius: 2rem
-      font-size: $text-size-normal
-      border: none
-
-      &:hover
-        background-color: darken($color-primary, 10%)
-        cursor: pointer
+    @include themify
+      border-top: 1px solid themed('borderColorStrong')

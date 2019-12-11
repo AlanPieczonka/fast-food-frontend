@@ -13,7 +13,7 @@ const ProductListing = props => {
   const productPrice = `${price} zł`;
 
   return (
-    <div key={name} className="p-listing -border-bottom">
+    <div key={name} className="p-listing -rounded">
       <img
         className="p-listing__thumbnail"
         src={thumbnailUrl}

@@ -2,18 +2,23 @@
   display: flex
   padding: $m-3 $m-2
   @include themify
-    box-shadow: 0 2px 6px themed('borderSubtleColor')
+    background-color: themed('bgColorStronger')
+    color: themed('textColorStronger')
 
   &.-border-bottom
     @include themify
-      border-bottom: 1px solid themed('borderSubtleColor')
+      border-bottom: 1px solid themed('borderColorStronger')
+
+  &.-rounded
+    border-radius: 8px
 
   &__thumbnail
     flex-shrink: 0
     width: 75px
     height: 75px
     border-radius: 10px
-    border: 1px solid $color-gray-100
+    @include themify
+      border: 1px solid themed('borderColorStronger')
 
   &__content
     width: 100%
@@ -25,7 +30,9 @@
     margin: 0
     padding: 0 $m-3
     font-size: $text-size-normal
-    font-weight: $font-thin
+    font-weight: $font-regular
+    @include themify
+      color: themed('textColorStrongest')
 
   &__footer
     display: flex
@@ -34,7 +41,8 @@
     padding: 0 $m-3
 
   &__price
-    color: $color-gray-30
+    @include themify
+      color: themed('textColorStronger')
 
   &__quantity
     display: flex
@@ -45,7 +53,10 @@
       padding: 4px
       margin: 0
       text-align: center
-      border: 1px solid $color-gray-90
+      @include themify
+        border: 1px solid themed('borderColorStronger')
+        background-color: themed('bgColorStrongest')
+        color: themed('textColorStronger')
       
       &:first-child
         border-right: none
@@ -59,4 +70,5 @@
         transition: background .3s ease
         &:hover
           cursor: pointer
-          background-color: $color-gray-100
+          @include themify
+            background-color: themed('backgroundColorStrong')

@@ -1,14 +1,15 @@
 .btn
   border: 2px solid $color-primary
-  padding: .75rem 2rem
+  padding: .5rem 2.25rem
   background-color: $color-primary
-  border-radius: 1rem
+  border-radius: 8px
   color: $button-text-primary
   font-size: 1rem
   cursor: pointer
   text-decoration: none
   transition: color .2s ease-out, background-color .2s ease-out
   line-height: 1.5
+  font-weight: 500
 
   &.-outline
     color: $color-primary
@@ -17,6 +18,9 @@
     &:hover
       background-color: $color-primary
       color: $button-text-primary
+
+  &.-block
+    width: 100%
 
   &__group
     display: flex

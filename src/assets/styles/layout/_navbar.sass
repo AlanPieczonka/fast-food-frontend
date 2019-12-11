@@ -9,7 +9,7 @@
   z-index: $navbar-zindex
 
   @include themify
-    background-color: themed('navbarBg')
+    background-color: themed('bgColorStrongest')
 
   &__logo
     width: 50px
@@ -37,24 +37,27 @@
     > a, button
       text-align: center
       text-decoration: none
-      color: $color-gray-30
       font-size: $text-size-normal
       padding: $m-25 0
       width: 16em
       border: none
-      background-color: $color-gray-100
-      border: 1px solid $color-gray-90
       transition: background .1s ease
+      @include themify
+        color: themed('textColorStronger')
+        background-color: themed('bgColorStronger')
+        border: 1px solid themed('bgColorStrongest')
 
       &:hover
         cursor: pointer
-        background-color: darken($color-gray-100, 10%)
-        border: 1px solid darken($color-gray-100, 15%)
+        @include themify
+          background-color: themed('bgColorStrong')
+          border: 1px solid themed('bgColorStronger')
 
       &.--active
-        background-color: #E74C3C
-        border-color: #E74C3C
-        color: white
+        @include themify
+          background-color: themed('colorPrimary')
+          border: 1px solid themed('colorPrimary')
+          color: themed('colorSecondary')
 
         &:hover
           background-color: darken($color-primary, 10%)

@@ -98,7 +98,7 @@ export default function Sidebebar() {
           <span>{sum} zł</span>
         </div>
         <div className="sidebar__submit">
-          <button>Complete Order</button>
+          <button className="btn -block">Complete Order</button>
         </div>
       </div>
     </div>
