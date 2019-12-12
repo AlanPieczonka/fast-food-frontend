@@ -1,7 +1,7 @@
 .sidebar
   position: relative
-  width: 22rem
-  padding: 0 1rem
+  width: $sidebar-width
+  padding: 0 $m-3
   height: calc(100vh - #{$navbar-height})
   height: calc(var(--vh, 1vh) * 100 - #{$navbar-height})
   box-shadow: 0 3px $m-3 rgba(0,0,0,0.1)
@@ -26,10 +26,14 @@
     right: 0
     bottom: 0
 
+  &__basket
+    & > .p-listing
+      margin-top: $m-3
+
   &__summary
     display: flex
     justify-content: space-between
-    padding: $m-3 $m-2
+    padding: $m-3 $m-4
     @include themify
       border-top: 1px solid themed('borderColorStrong')
 
