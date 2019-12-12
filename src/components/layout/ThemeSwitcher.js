@@ -2,13 +2,18 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { toggleUserTheme } from "../../actionCreators/user";
+import { setUserTheme } from "../../actionCreators/user";
 import DarkModeIcon from "./DarkModeIcon";
 
-const ThemeSwitcher = ({ toggleUserTheme, theme }) => {
+const ThemeSwitcher = ({ setUserTheme, theme }) => {
+  const isDark = theme === "dark";
+  const nextTheme = isDark ? "light" : "dark";
+
+  const setTheme = theme => () => setUserTheme(nextTheme);
+
   return (
-    <div className="navbar__switch" onClick={toggleUserTheme}>
-      <DarkModeIcon isToggled={theme === "dark"} />
+    <div className="navbar__switch" onClick={setTheme(theme)}>
+      <DarkModeIcon isToggled={isDark} />
     </div>
   );
 };
@@ -18,7 +23,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  toggleUserTheme
+  setUserTheme
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThemeSwitcher);

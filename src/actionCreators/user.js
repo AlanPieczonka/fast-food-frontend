@@ -1,18 +1,10 @@
 import * as types from "../types";
 
-export const toggleUserTheme = () => {
-  const userTheme = localStorage.getItem("theme");
-  const action = {
-    type: types.TOGGLE_USER_THEME
+export const setUserTheme = theme => {
+  localStorage.setItem("theme", theme);
+
+  return {
+    type: types.SET_USER_THEME,
+    payload: theme
   };
-
-  if (userTheme && userTheme === "light") {
-    localStorage.setItem("theme", "dark");
-
-    return action;
-  }
-
-  localStorage.setItem("theme", "light");
-
-  return action;
 };

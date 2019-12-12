@@ -1,4 +1,4 @@
-import { TOGGLE_USER_THEME } from "../types";
+import { SET_USER_THEME } from "../types";
 
 const theme = localStorage.getItem("theme") === "dark" ? "dark" : "light";
 
@@ -8,14 +8,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case TOGGLE_USER_THEME: {
-      const theme = state.theme === "dark" ? "light" : "dark";
-
+    case SET_USER_THEME:
       return {
         ...state,
-        theme
+        theme: action.payload
       };
-    }
     default:
       return state;
   }
