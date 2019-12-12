@@ -1,6 +1,6 @@
 # Fast Food App
 
-[>> VIEW SITE LIVE <<]("https://fastfoodapp.netlify.com")
+[>> VIEW SITE LIVE <<](https://fastfoodapp.netlify.com)
 
 ## Description
 
