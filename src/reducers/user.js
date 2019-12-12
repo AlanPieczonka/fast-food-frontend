@@ -1,7 +1,9 @@
 import { TOGGLE_USER_THEME } from "../types";
 
+const theme = localStorage.getItem("theme") === "dark" ? "dark" : "light";
+
 const initialState = {
-  theme: "dark"
+  theme
 };
 
 export default function(state = initialState, action) {
