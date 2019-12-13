@@ -6,12 +6,23 @@ import Navbar from "./components/layout/Navbar";
 import Content from "./components/layout/Content";
 import Checkout from "./components/pages/Checkout";
 import Management from "./components/pages/Management";
+import withTheme from "./hocs/withTheme";
 
-export default class Layout extends Component {
-  componentDidMount() {
+class Layout extends Component {
+  updateVh = () => {
     let vh = window.innerHeight * 0.01;
 
     document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  componentDidMount() {
+    this.updateVh();
+
+    this.resizeListener = window.addEventListener("resize", this.updateVh);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(this.resizeListener);
   }
 
   render() {
@@ -27,3 +38,5 @@ export default class Layout extends Component {
     );
   }
 }
+
+export default withTheme(Layout);

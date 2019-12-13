@@ -1,49 +1,147 @@
 .p-listing
   display: flex
-  padding: $m-3 $m-2
-  box-shadow: 0 2px 6px $color-gray-90
+  overflow: hidden
+  @include themify
+    background-color: themed('bgColorStronger')
+    color: themed('textColorStronger')
 
   &.-border-bottom
-    border-bottom: 1px solid $color-gray-100
+    @include themify
+      border-bottom: 1px solid themed('borderColorStronger')
+
+  &.-rounded
+    border-radius: 8px
 
   &__thumbnail
+    margin: $m-3
     flex-shrink: 0
     width: 75px
     height: 75px
-    border-radius: 10px
-    border: 1px solid $color-gray-100
+    border-radius: $m-25
+    @include themify
+      border: 1px solid themed('borderColorStronger')
 
   &__content
     width: 100%
     display: flex
     flex-direction: column
     justify-content: space-between
+    min-width: 0
+
+    &.-with-actions
+      flex-direction: row
+
+  &__details
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    padding: $m-3
+
+  &__actions
+    flex-basis: 25%
+    min-width: 120px
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: center
+    @include themify
+      border-left: 1px solid themed('borderColorStronger')
+
+  &__actions-button
+    display: flex
+    align-items: center
+    justify-content: center
+    flex: 0 0 50%
+    border: none
+    outline: none
+    cursor: pointer
+    background-color: transparent
+    @include themify
+      color: themed('colorPrimary')
+
+    &:hover
+      @include themify
+        background-color: themed('bgColorStrong')
+
+    &.-secondary
+      @include themify
+        color: themed('textColorStronger')
+
+    &.-icon > svg
+      width: $m-3
+      height: $m-3
+      margin-right: $m-2
+      fill: inherit
+      color: inherit
 
   &__heading
+    flex: 0 1 calc(100% - #{$m-5})
     margin: 0
-    padding: 0 $m-3
     font-size: $text-size-normal
-    font-weight: $font-thin
+    font-weight: $font-regular
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+    min-width: 0
+
+    &.-margin-left
+      margin-left: $m-3
+
+    @include themify
+      color: themed('textColorStrongest')
+
+  &__heading-wrapper
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding-left: $m-2
+
+  &__remove
+    +boxshadow
+    flex: 0 0 $m-35
+    min-width: 0
+    border: none
+    background: none
+    padding: 0
+    cursor: pointer
+
+    &:hover > svg
+      @include themify
+        color: themed('textColorStrongest')
+
+    > svg
+      width: $m-35
+      height: $m-35
+      transition: color .3s ease-out
+      @include themify
+        color: themed('textColorStronger')
 
   &__footer
     display: flex
     justify-content: space-between
     align-items: center
-    padding: 0 $m-3
+    min-width: 0
 
   &__price
-    color: $color-gray-30
+    margin-left: $m-4
+    @include themify
+      color: themed('textColorStronger')
 
   &__quantity
     display: flex
     > input
+      outline: none
       display: block
       width: 3em
       max-height: 25px
       padding: 4px
       margin: 0
       text-align: center
-      border: 1px solid $color-gray-90
+      @include themify
+        border: 1px solid themed('borderColorStronger')
+        background-color: themed('bgColorStrongest')
+        color: themed('textColorStronger')
       
       &:first-child
         border-right: none
@@ -54,7 +152,7 @@
         border-radius: 0 1rem 1rem 0
 
       &:first-child, &:last-child
-        transition: background .3s ease
-        &:hover
+        &:hover, &:focus
           cursor: pointer
-          background-color: $color-gray-100
+          @include themify
+            background-color: themed('bgColorStronger')

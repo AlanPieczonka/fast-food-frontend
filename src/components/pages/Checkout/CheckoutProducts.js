@@ -3,8 +3,8 @@ import React from "react";
 import ProductListing from "../../reusable/ProductListing";
 
 const CheckoutProducts = () => {
-  const PRODUCTS_MAP = Array.from({ length: 30 }).map(item => (
-    <ProductListing />
+  const PRODUCTS_MAP = Array.from({ length: 30 }).map((_, index) => (
+    <ProductListing key={index} />
   ));
 
   return (

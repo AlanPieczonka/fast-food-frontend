@@ -6,8 +6,10 @@
   padding: $m-3 $m-5
   box-shadow: 0 3px $m-3 rgba(0,0,0,0.1)
   min-width: 1024px
-  background-color: $color-white
   z-index: $navbar-zindex
+
+  @include themify
+    background-color: themed('bgColorStrongest')
 
   &__logo
     width: 50px
@@ -28,31 +30,38 @@
     display: flex
     box-shadow: 0 3px 16px rgba(0,0,0,0.1)
     border-radius: 2em
+    position: absolute
+    left: 50%
+    transform: translateX(-50%)
 
     > a, button
       text-align: center
       text-decoration: none
-      color: $color-gray-30
       font-size: $text-size-normal
       padding: $m-25 0
       width: 16em
       border: none
-      background-color: $color-gray-100
-      border: 1px solid $color-gray-90
       transition: background .1s ease
+      @include themify
+        color: themed('textColorStronger')
+        background-color: themed('bgColorStronger')
+        border: 1px solid themed('bgColorStrongest')
 
       &:hover
         cursor: pointer
-        background-color: darken($color-gray-100, 10%)
-        border: 1px solid darken($color-gray-100, 15%)
+        @include themify
+          background-color: themed('bgColorStrong')
+          border: 1px solid themed('bgColorStronger')
 
       &.--active
-        background-color: #E74C3C
-        border-color: #E74C3C
-        color: white
+        @include themify
+          background-color: themed('colorPrimary')
+          border: 1px solid themed('colorPrimary')
+          color: themed('colorSecondary')
 
         &:hover
-          background-color: darken($color-primary, 10%)
+          @include themify
+            background-color: darken(themed('colorPrimary'), 10%)
 
       &.--muted
         background-color: white
@@ -66,3 +75,10 @@
 
       &:last-child
         border-radius: 0 2em 2em 0
+
+  &__right
+    display: flex
+    align-items: center
+
+  &__switch
+    margin-right: $m-4

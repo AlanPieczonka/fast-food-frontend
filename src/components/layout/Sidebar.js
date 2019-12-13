@@ -1,47 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+
+import IconClose from "../../assets/icons/Close";
 
 const initialProducts = [
   {
-    name: 'Bourbon BBQ Grander Box',
+    name: "Bourbon BBQ Grander Box",
     price: 31.95,
     quantity: 2
   },
   {
-    name: 'Chicken Cinger',
+    name: "Chicken Cinger",
     price: 23.32,
     quantity: 3
   }
-]
+];
 
-export default function Sidebebar () {
-  const [products, setProducts] = useState(initialProducts)
+export default function Sidebebar() {
+  const [products, setProducts] = useState(initialProducts);
 
-  const sum = products.length ? products.map(({ price, quantity }) => price * quantity).reduce((x, y) => x + y).toFixed(2) : 0
+  const sum = products.length
+    ? products
+        .map(({ price, quantity }) => price * quantity)
+        .reduce((x, y) => x + y)
+        .toFixed(2)
+    : 0;
 
   const lowerProductQuantity = index => () => {
-    const updatedProducts = [...products]
+    const updatedProducts = [...products];
 
-    if (updatedProducts[index].quantity <= 0)
-      return
+    if (updatedProducts[index].quantity <= 0) return;
 
-    updatedProducts[index].quantity -= 1
+    updatedProducts[index].quantity -= 1;
 
-    setProducts(updatedProducts)
-  }
+    setProducts(updatedProducts);
+  };
 
   const increaseProductQuantity = index => () => {
-    const updatedProducts = [...products]
-    updatedProducts[index].quantity += 1
+    const updatedProducts = [...products];
+    updatedProducts[index].quantity += 1;
 
-    setProducts(updatedProducts)
-  }
+    setProducts(updatedProducts);
+  };
 
   const removeProduct = index => () => {
-    const updatedProducts = [...products]
-    updatedProducts.splice(index, 1)
+    const updatedProducts = [...products];
+    updatedProducts.splice(index, 1);
 
-    setProducts(updatedProducts)
-  }
+    setProducts(updatedProducts);
+  };
 
   return (
     <div className="sidebar">
@@ -49,35 +55,46 @@ export default function Sidebebar () {
 
       {products.map(({ name, quantity, price }, index) => (
         <div className="sidebar__basket" key={name}>
-          <div className="p-listing --border-bottom">
-            <img className="p-listing__thumbnail" src="https://placehold.it/100x100" alt="Product Thumbnail" />
+          <div className="p-listing -rounded">
+            <img
+              className="p-listing__thumbnail"
+              src="https://ocs-pl.oktawave.com/v1/AUTH_876e5729-f8dd-45dd-908f-35d8bb716177/amrest-web-ordering/img%2FKFC%2FWeb%2FWEB%2Fprodukt%2Fgrander-texas.png"
+              alt="Product Thumbnail"
+            />
             <div className="p-listing__content">
-              <h2 className="p-listing__heading">{name}</h2>
-              <div className="p-listing__footer">
-                <span className="p-listing__quantity">
-                  <input 
-                    type="submit" 
-                    value="-"
-                    readOnly
-                    onClick={lowerProductQuantity(index)} 
-                  />
+              <div className="p-listing__details">
+                <div className="p-listing__heading-wrapper">
+                  <h2 className="p-listing__heading">{name}</h2>
 
-                  <input
-                    type="text"
-                    value={quantity}
-                    disabled
-                    readOnly
-                  />
+                  <button
+                    value="X"
+                    className="p-listing__remove"
+                    onClick={removeProduct(index)}
+                  >
+                    <IconClose />
+                  </button>
+                </div>
+                <div className="p-listing__footer">
+                  <span className="p-listing__quantity">
+                    <input
+                      type="submit"
+                      value="-"
+                      readOnly
+                      onClick={lowerProductQuantity(index)}
+                    />
 
-                  <input 
-                    type="submit" 
-                    value="+"
-                    readOnly
-                    onClick={increaseProductQuantity(index)}
-                  />
-                </span>
-                <input type="submit" value="X" readOnly onClick={removeProduct(index)}/>
-                <span className="p-listing__price">{price} zł</span>
+                    <input type="text" value={quantity} disabled readOnly />
+
+                    <input
+                      type="submit"
+                      value="+"
+                      readOnly
+                      onClick={increaseProductQuantity(index)}
+                    />
+                  </span>
+
+                  <span className="p-listing__price">{price} zł</span>
+                </div>
               </div>
             </div>
           </div>
@@ -90,9 +107,9 @@ export default function Sidebebar () {
           <span>{sum} zł</span>
         </div>
         <div className="sidebar__submit">
-          <button>Complete Order</button>
+          <button className="btn -block">Complete Order</button>
         </div>
       </div>
     </div>
-  )
+  );
 }

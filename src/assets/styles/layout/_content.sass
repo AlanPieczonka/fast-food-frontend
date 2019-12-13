@@ -2,8 +2,10 @@
   display: flex
   height: calc(100vh - #{$navbar-height})
   height: calc(var(--vh, 1vh) * 100 - #{$navbar-height})
+  @include themify
+    background-color: themed("bgColorStronger")
 
   &__wrapper
-    flex: 1 0 calc(100vw - 22rem)
+    flex: 1 0 calc(100vw - #{$sidebar-width})
     padding: $m-4
     height: 100%

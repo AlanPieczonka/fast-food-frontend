@@ -1,10 +1,18 @@
-import { USER_LOGGED_IN } from '../types'
+import { SET_USER_THEME } from "../types";
 
-// temporary, made up example
-export default function (state = {}, action) {
+const theme = localStorage.getItem("theme") === "dark" ? "dark" : "light";
+
+const initialState = {
+  theme
+};
+
+export default function(state = initialState, action) {
   switch (action.type) {
-    case USER_LOGGED_IN:
-      return { ...state };
+    case SET_USER_THEME:
+      return {
+        ...state,
+        theme: action.payload
+      };
     default:
       return state;
   }

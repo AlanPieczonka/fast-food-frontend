@@ -1,0 +1,64 @@
+$themes: (
+  light: (
+    colorPrimary: #e74c3c,
+    colorSecondary: #fff,
+    colorWhite: white,
+    colorInfo: #039be5,
+    colorDanger: #e53935,
+    borderColorStrongest: #212121,
+    borderColorStronger: #f4f4f4,
+    borderColorStrong: #f4f4f4,
+    textColorStrongest: #212121,
+    textColorStronger: #626262,
+    textColorStrong: #adadad,
+    bgColorStrongest: #ffffff,
+    bgColorStronger: #f7f7f7,
+    bgColorStrong: #d1d1d1
+  ),
+  dark: (
+    colorPrimary: #e74c3c,
+    colorSecondary: #fff,
+    colorWhite: #212121,
+    colorInfo: #039be5,
+    colorDanger: #e53935,
+    borderColorStrongest: #f0f1f3,
+    borderColorStronger: #343640,
+    borderColorStrong: #25272f,
+    textColorStrongest: #f0f1f3,
+    textColorStronger: #aaacad,
+    textColorStrong: #65676c,
+    bgColorStrongest: #12151b,
+    bgColorStronger: #1c1e24,
+    bgColorStrong: #25272f
+  )
+);
+
+@mixin themify($themes: $themes) {
+  $timing: 0.3s;
+  $function: ease;
+
+  transition: background-color $timing $function, color $timing $function,
+    border-color $timing $function, box-shadow $timing $function;
+
+  @each $theme, $map in $themes {
+    .theme.-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value
+          )
+        ) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

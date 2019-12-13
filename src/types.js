@@ -1,2 +1,3 @@
-export const USER_LOGGED_IN = 'USER_LOGGED_IN';
-export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+export const USER_LOGGED_IN = "USER_LOGGED_IN";
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const SET_USER_THEME = "SET_USER_THEME";
