@@ -1,13 +1,17 @@
-import { FETCH_PRODUCTS } from '../types'
+import { FETCH_PRODUCTS } from "../types";
 
-export default function (state = {}, action) {
+const initialState = {
+  byId: {}
+};
+
+export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_PRODUCTS:
-      return { 
+      return {
         ...state,
-        products: action.payload
-      }
+        byId: action.payload
+      };
     default:
-      return state
+      return state;
   }
 }
