@@ -9,7 +9,7 @@ import { getProductsArray } from "../../../selectors";
 const CheckoutProducts = ({ products, fetchProducts }) => {
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   const PRODUCTS_MAP = products.map((product, index) => (
     <ProductListing key={product.id} product={product} />

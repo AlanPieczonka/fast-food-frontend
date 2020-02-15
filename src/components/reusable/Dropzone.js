@@ -5,12 +5,10 @@ import { toBase64 } from "./helpers";
 
 const Dropzone = props => {
   const [temporaryImage, setTemporaryImage] = useState(null);
-  const [currentImage, setCurrentImage] = useState(null);
 
   const onDrop = async acceptedFiles => {
     const image = acceptedFiles[0];
 
-    setCurrentImage(image);
     setTemporaryImage(await toBase64(image));
 
     props.onChange(image);
@@ -18,7 +16,6 @@ const Dropzone = props => {
 
   const clearImage = () => {
     setTemporaryImage(null);
-    setCurrentImage(null);
   };
 
   return (
@@ -40,6 +37,7 @@ const Dropzone = props => {
                   <img
                     src={temporaryImage || props.photoUrl}
                     className="form__dropzone-preview"
+                    alt="Uploaded file preview"
                     onClick={clearImage}
                   />
                 ) : (

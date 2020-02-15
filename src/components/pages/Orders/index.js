@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Socket } from "phoenix";
-
 import Content from "../../layout/Content";
 
 export default () => {

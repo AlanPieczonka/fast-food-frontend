@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
-import { Switch, Link, Route, withRouter } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import Content from "../../layout/Content";
-import ProductForm from "../../reusable/ProductForm";
 import ProductList from "./ProductList";
 import ProductEdit from "./ProductEdit";
 import ProductCreate from "./ProductCreate";
