@@ -7,7 +7,9 @@ import { fetchProducts } from "../../../actionCreators/product";
 import { getProductsArray } from "../../../selectors";
 
 const CheckoutProducts = ({ products, fetchProducts }) => {
-  useEffect(() => fetchProducts(), []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const PRODUCTS_MAP = products.map((product, index) => (
     <ProductListing key={product.id} product={product} />

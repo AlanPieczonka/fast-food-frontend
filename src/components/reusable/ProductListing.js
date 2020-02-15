@@ -8,7 +8,7 @@ const ProductListing = ({ product }) => {
   const productPrice = `${price} zł`;
 
   return (
-    <div key={name} className="p-listing -rounded">
+    <div key={name} className="p-listing -rounded -hidden">
       <img
         className="p-listing__thumbnail"
         src={thumbnailUrl}
