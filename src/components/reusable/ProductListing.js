@@ -3,7 +3,7 @@ import React from "react";
 import IconPlus from "../../assets/icons/Plus";
 
 const ProductListing = ({ product }) => {
-  const { name, thumbnailUrl, price } = product;
+  const { name, thumbnail_url: thumbnailUrl, price } = product;
 
   const productPrice = `${price} zł`;
 

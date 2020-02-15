@@ -22,7 +22,7 @@ class Layout extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener(this.resizeListener);
+    window.removeEventListener("resize", this.resizeListener);
   }
 
   render() {
