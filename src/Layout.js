@@ -31,9 +31,9 @@ class Layout extends Component {
         <Navbar />
 
         <Switch>
-          <Route path="/" exact component={Checkout} />
           <Route path="/orders" component={Orders} />
           <Route path="/management" component={Management} />
+          <Route path="/" component={Checkout} />
         </Switch>
       </Router>
     );
