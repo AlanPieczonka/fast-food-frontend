@@ -108,7 +108,11 @@ const ProductForm = ({ initialValues = {}, isEditing, history }) => {
               "--loading"}`}
           >
             {isLoading ? (
-              <img src={spin} className="management__toolbar-button-loader" />
+              <img
+                src={spin}
+                className="management__toolbar-button-loader"
+                alt="Loading spinner"
+              />
             ) : isEditing ? (
               "Update Product"
             ) : (

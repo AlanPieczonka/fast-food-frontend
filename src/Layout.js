@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
-import Content from "./components/layout/Content";
 import Checkout from "./components/pages/Checkout";
 import Management from "./components/pages/Management";
+import Orders from "./components/pages/Orders";
 import withTheme from "./hocs/withTheme";
 
 class Layout extends Component {
@@ -22,7 +22,7 @@ class Layout extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener(this.resizeListener);
+    window.removeEventListener("resize", this.resizeListener);
   }
 
   render() {
@@ -31,8 +31,9 @@ class Layout extends Component {
         <Navbar />
 
         <Switch>
-          <Route path="/" exact component={Checkout} />
+          <Route path="/orders" component={Orders} />
           <Route path="/management" component={Management} />
+          <Route path="/" component={Checkout} />
         </Switch>
       </Router>
     );

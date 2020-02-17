@@ -2,20 +2,13 @@ import React from "react";
 
 import IconPlus from "../../assets/icons/Plus";
 
-const mockedProps = {
-  name: "Bourbon BBQ Grander Box",
-  thumbnailUrl:
-    "https://ocs-pl.oktawave.com/v1/AUTH_876e5729-f8dd-45dd-908f-35d8bb716177/amrest-web-ordering/img%2FKFC%2FWeb%2FWEB%2Fprodukt%2Fgrander-texas.png",
-  price: 31.95
-};
-
-const ProductListing = props => {
-  const { name, thumbnailUrl, price } = mockedProps;
+const ProductListing = ({ product }) => {
+  const { name, thumbnail_url: thumbnailUrl, price } = product;
 
   const productPrice = `${price} zł`;
 
   return (
-    <div key={name} className="p-listing -rounded">
+    <div key={name} className="p-listing -rounded -hidden">
       <img
         className="p-listing__thumbnail"
         src={thumbnailUrl}

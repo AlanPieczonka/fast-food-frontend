@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Socket } from "phoenix";
-
 import Sidebar from "../../layout/Sidebar";
 import Content from "../../layout/Content";
 import CheckoutProducts from "./CheckoutProducts";

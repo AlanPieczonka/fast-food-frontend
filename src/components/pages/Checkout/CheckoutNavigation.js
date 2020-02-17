@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
-const CheckoutNavigation = props => {
+const CheckoutNavigation = () => {
   const [activeTab, updateActiveTab] = useState("recent");
 
   const navItems = [
@@ -37,7 +36,5 @@ const CheckoutNavigation = props => {
 
   return <div className="checkout__nav">{NAVITEMS_MAP}</div>;
 };
-
-CheckoutNavigation.propTypes = {};
 
 export default CheckoutNavigation;

@@ -12,7 +12,9 @@ const ProductList = () => (
       </div>
     </div>
 
-    <div className="management__products"></div>
+    <div className="management__products">
+      List of products in management page
+    </div>
   </>
 );
 
