@@ -1,37 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import Modal from 'react-modal';
 
+import { addProduct } from "../../actionCreators/order";
+import ProductCard from "./ProductCard";
 import IconPlus from "../../assets/icons/Plus";
+import { useModal } from '../../hooks/modal';
 
-const ProductListing = ({ product }) => {
+Modal.setAppElement("#root")
+
+export default function ProductListing({ product }) {
   const { name, thumbnail_url: thumbnailUrl, price } = product;
 
   const productPrice = `${price} zł`;
 
+  const [quantity, setQuantity] = useState(1)
+  const dispatch = useDispatch()
+
+  const { isOpen, openModal, closeModal } = useModal()
+
   return (
     <div key={name} className="p-listing -rounded -hidden">
       <img
-        className="p-listing__thumbnail"
+        className="p-listing__thumbnail "
         src={thumbnailUrl}
         alt="Product Thumbnail"
+        onClick={openModal}
       />
 
       <div className="p-listing__content -with-actions">
         <div className="p-listing__details">
           <h2 className="p-listing__heading">{name}</h2>
+          <Modal
+            isOpen={isOpen}
+            onRequestClose={closeModal}
+          >            
+            <ProductCard product={product} />
+          </Modal>
 
           <div className="p-listing__footer">
             <span className="p-listing__quantity">
-              <input type="submit" value="-" readOnly />
+              <input type="submit" value="-" onClick={() => setQuantity(quantity - 1 > 1 ? quantity - 1 : 1)} readOnly />
 
-              <input type="text" value="1" readOnly />
+              <input type="text" value={quantity} readOnly />
 
-              <input type="submit" value="+" readOnly />
+              <input type="submit" value="+" onClick={() => setQuantity(quantity + 1 < 10 ? quantity + 1 : 10)} readOnly />
             </span>
             <span className="p-listing__price">{productPrice}</span>
           </div>
         </div>
         <div className="p-listing__actions">
-          <button className="p-listing__actions-button -icon">
+          <button onClick={() => dispatch(addProduct({
+            productId: product.id,
+            quantity
+          }))} className="p-listing__actions-button -icon">
             <IconPlus /> Add
           </button>
 
@@ -43,5 +65,3 @@ const ProductListing = ({ product }) => {
     </div>
   );
 };
-
-export default ProductListing;
