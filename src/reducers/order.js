@@ -13,13 +13,12 @@ export default function(state = initialState, action) {
       return state.filter((product, index) => {
         return index !== action.payload.index
       })
-    case UPDATE_PRODUCT_QUANTITY:
-      return state.map((product, index) => {
-        return index === action.payload.index ? { 
-          ...product,
-          quantity: action.payload.quantity
-         } : product
-      })        
+    case UPDATE_PRODUCT_QUANTITY: {
+      const newOrders = [...state]
+      newOrders[action.payload.index].quantity = action.payload.quantity
+
+      return newOrders
+    }     
     case SAVE_ORDER:
       return initialState
     default:

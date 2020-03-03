@@ -51,7 +51,7 @@ export default function Sidebebar() {
                       type="submit"
                       value="-"
                       readOnly
-                      onClick={() => dispatch(updateProductQuantity(index, quantity - 1))}
+                      onClick={() => dispatch(updateProductQuantity(index, quantity - 1 > 0 ? quantity - 1 : 1))}
                     />
 
                     <input type="text" value={quantity} disabled readOnly />
@@ -60,7 +60,7 @@ export default function Sidebebar() {
                       type="submit"
                       value="+"
                       readOnly
-                      onClick={() => dispatch(updateProductQuantity(index, quantity + 1))}
+                      onClick={() => dispatch(updateProductQuantity(index, quantity + 1 < 11 ? quantity + 1 : 10))}
                     />
                   </span>
 
