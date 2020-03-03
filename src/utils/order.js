@@ -1,6 +1,9 @@
-export const calculateSum = (order) => order.length
-? order
-    .map(({ price, quantity }) => price * quantity)
-    .reduce((x, y) => x + y)
-    .toFixed(2)
-: 0;
+import sumBy from 'lodash.sumby'
+
+export const calculateSum = order => {
+    if (!order.length) {
+        return 0
+    }
+
+    return sumBy(order, ({ price, quantity }) => price * quantity).toFixed(2)
+}
