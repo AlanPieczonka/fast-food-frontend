@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, REMOVE_PRODUCT, INCREASE_PRODUCT_QUANTITY, DECREASE_PRODUCT_QUANTITY, SAVE_ORDER } from "../types";
+import { ADD_PRODUCT, REMOVE_PRODUCT, UPDATE_PRODUCT_QUANTITY, SAVE_ORDER } from "../types";
 
 const initialState = []
 
@@ -13,20 +13,13 @@ export default function(state = initialState, action) {
       return state.filter((product, index) => {
         return index !== action.payload.index
       })
-    case INCREASE_PRODUCT_QUANTITY:
+    case UPDATE_PRODUCT_QUANTITY:
       return state.map((product, index) => {
         return index === action.payload.index ? { 
           ...product,
-          quantity: product.quantity + 1 <= 10 ? product.quantity + 1 : 10
+          quantity: action.payload.quantity
          } : product
-      })
-    case DECREASE_PRODUCT_QUANTITY:
-      return state.map((product, index) => {
-        return index === action.payload.index ? { 
-          ...product,
-          quantity: product.quantity - 1 >= 1 ? product.quantity - 1 : 1
-         } : product
-      })
+      })        
     case SAVE_ORDER:
       return initialState
     default:

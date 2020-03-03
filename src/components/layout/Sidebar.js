@@ -6,7 +6,7 @@ import PaymentForm from '../reusable/PaymentForm'
 
 import IconClose from "../../assets/icons/Close";
 import { getOrdersArray } from "../../selectors";
-import { removeProduct, decreaseProductQuantity, increaseProductQuantity } from "../../actionCreators/order"
+import { removeProduct, updateProductQuantity } from "../../actionCreators/order"
 import { useModal } from "../../hooks/modal";
 import { calculateSum } from "./../../utils/order"
 
@@ -40,7 +40,7 @@ export default function Sidebebar() {
                   <button
                     value="X"
                     className="p-listing__remove"
-                    onClick={() => dispatch(removeProduct({ index }))}
+                    onClick={() => dispatch(removeProduct(index))}
                   >
                     <IconClose />
                   </button>
@@ -51,7 +51,7 @@ export default function Sidebebar() {
                       type="submit"
                       value="-"
                       readOnly
-                      onClick={() => dispatch(decreaseProductQuantity({ index }))}
+                      onClick={() => dispatch(updateProductQuantity(index, quantity - 1))}
                     />
 
                     <input type="text" value={quantity} disabled readOnly />
@@ -60,7 +60,7 @@ export default function Sidebebar() {
                       type="submit"
                       value="+"
                       readOnly
-                      onClick={() => dispatch(increaseProductQuantity({ index }))}
+                      onClick={() => dispatch(updateProductQuantity(index, quantity + 1))}
                     />
                   </span>
 
@@ -78,7 +78,7 @@ export default function Sidebebar() {
           <span>{sum} zł</span>
         </div>
         <div className="sidebar__submit">
-          <button className={`btn -block ${sum === 0 ? '-grayed' : ''}`} disabled={sum === 0} onClick={openModal}>Complete Order</button>
+          <button className={`btn -block ${sum === 0 ? '-disabled' : ''}`} disabled={sum === 0} onClick={openModal}>Complete Order</button>
           <Modal
             isOpen={isOpen}
             onRequestClose={closeModal}>
