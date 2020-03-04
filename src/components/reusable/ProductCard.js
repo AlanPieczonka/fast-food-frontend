@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ name, thumbnailUrl, price, id, description }, index) => {
+const ProductCard = ({ product: { name, thumbnail_url: thumbnailUrl, price, id, description }}, index) => {
   const removeProduct = () => {};
 
   const onRemove = async () => {
