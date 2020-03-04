@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Modal from 'react-modal';
 
 import { addProduct } from "../../actionCreators/order";
 import ProductCard from "./ProductCard";
 import IconPlus from "../../assets/icons/Plus";
 import { useModal } from '../../hooks/modal';
-
-Modal.setAppElement("#root")
+import CustomModal from './CustomModal'
 
 export default function ProductListing({ product }) {
   const { name, thumbnail_url: thumbnailUrl, price } = product;
@@ -31,13 +29,12 @@ export default function ProductListing({ product }) {
       <div className="p-listing__content -with-actions">
         <div className="p-listing__details">
           <h2 className="p-listing__heading">{name}</h2>
-          <Modal
+          <CustomModal
+            Component={ProductCard}
             isOpen={isOpen}
             onRequestClose={closeModal}
-          >            
-            <ProductCard product={product} />
-          </Modal>
-
+            product={product}
+          />            
           <div className="p-listing__footer">
             <span className="p-listing__quantity">
               <input type="submit" value="-" onClick={() => setQuantity(quantity - 1 > 1 ? quantity - 1 : 1)} readOnly />

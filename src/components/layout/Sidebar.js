@@ -9,6 +9,7 @@ import { getOrdersArray } from "../../selectors";
 import { removeProduct, updateProductQuantity } from "../../actionCreators/order"
 import { useModal } from "../../hooks/modal";
 import { calculateSum } from "./../../utils/order"
+import CustomModal from "../reusable/CustomModal";
 
 Modal.setAppElement("#root")
 
@@ -79,11 +80,13 @@ export default function Sidebebar() {
         </div>
         <div className="sidebar__submit">
           <button className={`btn -block ${sum === 0 ? '-disabled' : ''}`} disabled={sum === 0} onClick={openModal}>Complete Order</button>
-          <Modal
+          <CustomModal 
+            Component={PaymentForm}
             isOpen={isOpen}
-            onRequestClose={closeModal}>
-            <PaymentForm closeModal={closeModal} order={order} />
-          </Modal>
+            onRequestClose={closeModal}
+            closeModal={closeModal}
+            order={order}
+          />
         </div>
       </div>
     </div>
