@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux"
-import Modal from 'react-modal';
 
 import PaymentForm from '../reusable/PaymentForm'
 
@@ -9,8 +8,7 @@ import { getOrdersArray } from "../../selectors";
 import { removeProduct, updateProductQuantity } from "../../actionCreators/order"
 import { useModal } from "../../hooks/modal";
 import { calculateSum } from "./../../utils/order"
-
-Modal.setAppElement("#root")
+import Modal from "../reusable/Modal";
 
 export default function Sidebebar() {
   const order = getOrdersArray(useSelector(state => state))
@@ -79,11 +77,13 @@ export default function Sidebebar() {
         </div>
         <div className="sidebar__submit">
           <button className={`btn -block ${sum === 0 ? '-disabled' : ''}`} disabled={sum === 0} onClick={openModal}>Complete Order</button>
-          <Modal
+          <Modal 
+            Component={PaymentForm}
             isOpen={isOpen}
-            onRequestClose={closeModal}>
-            <PaymentForm closeModal={closeModal} order={order} />
-          </Modal>
+            onRequestClose={closeModal}
+            closeModal={closeModal}
+            order={order}
+          />
         </div>
       </div>
     </div>
