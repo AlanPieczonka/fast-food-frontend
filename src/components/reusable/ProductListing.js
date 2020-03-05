@@ -5,7 +5,7 @@ import { addProduct } from "../../actionCreators/order";
 import ProductCard from "./ProductCard";
 import IconPlus from "../../assets/icons/Plus";
 import { useModal } from '../../hooks/modal';
-import CustomModal from './CustomModal'
+import Modal from './Modal'
 
 export default function ProductListing({ product }) {
   const { name, thumbnail_url: thumbnailUrl, price } = product;
@@ -29,7 +29,7 @@ export default function ProductListing({ product }) {
       <div className="p-listing__content -with-actions">
         <div className="p-listing__details">
           <h2 className="p-listing__heading">{name}</h2>
-          <CustomModal
+          <Modal
             Component={ProductCard}
             isOpen={isOpen}
             onRequestClose={closeModal}
