@@ -1,29 +1,32 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 
-import PaymentForm from '../reusable/PaymentForm'
+import PaymentForm from "../reusable/PaymentForm";
 
 import IconClose from "../../assets/icons/Close";
 import { getOrdersArray } from "../../selectors";
-import { removeProduct, updateProductQuantity } from "../../actionCreators/order"
+import {
+  removeProduct,
+  updateProductQuantity
+} from "../../actionCreators/order";
 import { useModal } from "../../hooks/modal";
-import { calculateSum } from "./../../utils/order"
+import { calculateSum } from "./../../utils/order";
 import Modal from "../reusable/Modal";
 
-export default function Sidebebar() {
-  const order = getOrdersArray(useSelector(state => state))
+export default function Sidebar() {
+  const order = getOrdersArray(useSelector(state => state));
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const sum = calculateSum(order)
+  const sum = calculateSum(order);
 
-  const { isOpen, openModal, closeModal } = useModal()
+  const { isOpen, openModal, closeModal } = useModal();
 
   return (
     <div className="sidebar">
       <h2 className="sidebar__heading">Current Order</h2>
-      {order.map(({ name, quantity, price, photo_url }, index) => (
-        <div className="sidebar__basket" key={name}>
+      {order.map(({ tempId, name, quantity, price, photo_url }, index) => (
+        <div className="sidebar__basket" key={tempId}>
           <div className="p-listing -rounded">
             <img
               className="p-listing__thumbnail"
@@ -34,7 +37,7 @@ export default function Sidebebar() {
               <div className="p-listing__details">
                 <div className="p-listing__heading-wrapper">
                   <h2 className="p-listing__heading">{name}</h2>
-                  
+
                   <button
                     value="X"
                     className="p-listing__remove"
@@ -49,7 +52,14 @@ export default function Sidebebar() {
                       type="submit"
                       value="-"
                       readOnly
-                      onClick={() => dispatch(updateProductQuantity(index, quantity - 1 > 0 ? quantity - 1 : 1))}
+                      onClick={() =>
+                        dispatch(
+                          updateProductQuantity(
+                            index,
+                            quantity - 1 > 0 ? quantity - 1 : 1
+                          )
+                        )
+                      }
                     />
 
                     <input type="text" value={quantity} disabled readOnly />
@@ -58,7 +68,14 @@ export default function Sidebebar() {
                       type="submit"
                       value="+"
                       readOnly
-                      onClick={() => dispatch(updateProductQuantity(index, quantity + 1 < 11 ? quantity + 1 : 10))}
+                      onClick={() =>
+                        dispatch(
+                          updateProductQuantity(
+                            index,
+                            quantity + 1 < 11 ? quantity + 1 : 10
+                          )
+                        )
+                      }
                     />
                   </span>
 
@@ -76,8 +93,14 @@ export default function Sidebebar() {
           <span>{sum} zł</span>
         </div>
         <div className="sidebar__submit">
-          <button className={`btn -block ${sum === 0 ? '-disabled' : ''}`} disabled={sum === 0} onClick={openModal}>Complete Order</button>
-          <Modal 
+          <button
+            className={`btn -block ${sum === 0 ? "-disabled" : ""}`}
+            disabled={sum === 0}
+            onClick={openModal}
+          >
+            Complete Order
+          </button>
+          <Modal
             Component={PaymentForm}
             isOpen={isOpen}
             onRequestClose={closeModal}

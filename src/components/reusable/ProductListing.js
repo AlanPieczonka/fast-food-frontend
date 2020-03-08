@@ -4,18 +4,33 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../../actionCreators/order";
 import ProductCard from "./ProductCard";
 import IconPlus from "../../assets/icons/Plus";
-import { useModal } from '../../hooks/modal';
-import Modal from './Modal'
+import { useModal } from "../../hooks/modal";
+import Modal from "./Modal";
 
 export default function ProductListing({ product }) {
-  const { name, thumbnail_url: thumbnailUrl, price } = product;
+  const { name, thumbnailUrl, quantityLimit, price } = product;
 
   const productPrice = `${price} zł`;
 
-  const [quantity, setQuantity] = useState(1)
-  const dispatch = useDispatch()
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
 
-  const { isOpen, openModal, closeModal } = useModal()
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const addProductToOrder = (product, quantity) => () =>
+    dispatch(addProduct(product, quantity));
+
+  const updateProductQuantity = newQuantity => () => {
+    if (newQuantity <= 0) {
+      return setQuantity(1);
+    }
+
+    if (newQuantity >= quantityLimit) {
+      return setQuantity(quantityLimit);
+    }
+
+    return setQuantity(newQuantity);
+  };
 
   return (
     <div key={name} className="p-listing -rounded -hidden">
@@ -34,23 +49,33 @@ export default function ProductListing({ product }) {
             isOpen={isOpen}
             onRequestClose={closeModal}
             product={product}
-          />            
+          />
           <div className="p-listing__footer">
             <span className="p-listing__quantity">
-              <input type="submit" value="-" onClick={() => setQuantity(quantity - 1 > 1 ? quantity - 1 : 1)} readOnly />
+              <input
+                type="submit"
+                value="-"
+                onClick={updateProductQuantity(quantity - 1)}
+                readOnly
+              />
 
               <input type="text" value={quantity} readOnly />
 
-              <input type="submit" value="+" onClick={() => setQuantity(quantity + 1 < 10 ? quantity + 1 : 10)} readOnly />
+              <input
+                type="submit"
+                value="+"
+                onClick={updateProductQuantity(quantity + 1)}
+                readOnly
+              />
             </span>
             <span className="p-listing__price">{productPrice}</span>
           </div>
         </div>
         <div className="p-listing__actions">
-          <button onClick={() => dispatch(addProduct({
-            productId: product.id,
-            quantity
-          }))} className="p-listing__actions-button -icon">
+          <button
+            onClick={addProductToOrder(product, quantity)}
+            className="p-listing__actions-button -icon"
+          >
             <IconPlus /> Add
           </button>
 
@@ -61,4 +86,4 @@ export default function ProductListing({ product }) {
       </div>
     </div>
   );
-};
+}

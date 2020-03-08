@@ -23,8 +23,7 @@ const CheckoutProducts = ({ products, fetchProducts }) => {
 };
 
 const mapStateToProps = state => ({
-  products: getProductsArray(state.products.byId),
-  productsById: state.products.byId
+  products: getProductsArray(state.products.byId)
 });
 
 const mapDispatchToProps = { fetchProducts };
