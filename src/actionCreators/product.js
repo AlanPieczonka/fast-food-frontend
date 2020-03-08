@@ -1,11 +1,14 @@
 import * as types from "../types";
 
 import api from "../api";
+import { deserialize } from "../serializers/product";
 
 export const fetchProducts = () => async dispatch => {
-  const products = await api("/products");
+  const response = await api("/products");
 
-  const productsById = products.data.reduce(
+  const products = await deserialize(response);
+
+  const productsById = products.reduce(
     (acc, cur) => (acc = { ...acc, [cur.id]: cur }),
     {}
   );
