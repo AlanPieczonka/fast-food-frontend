@@ -9,7 +9,8 @@ const options = {
     "price",
     "quantity-limit",
     "thumbnail-url"
-  ]
+  ],
+  keyForAttribute: "camelCase"
 };
 
 const ProductSerializer = new Serializer("products", options);

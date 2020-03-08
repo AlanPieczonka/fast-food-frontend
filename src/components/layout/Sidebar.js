@@ -25,13 +25,13 @@ export default function Sidebar() {
   return (
     <div className="sidebar">
       <h2 className="sidebar__heading">Current Order</h2>
-      {order.map(({ tempId, name, quantity, price, photo_url }, index) => (
+      {order.map(({ tempId, name, quantity, price, thumbnailUrl }, index) => (
         <div className="sidebar__basket" key={tempId}>
           <div className="p-listing -rounded">
             <img
               className="p-listing__thumbnail"
-              src={photo_url}
-              alt="Product Thumbnail"
+              src={thumbnailUrl}
+              alt={name}
             />
             <div className="p-listing__content">
               <div className="p-listing__details">
