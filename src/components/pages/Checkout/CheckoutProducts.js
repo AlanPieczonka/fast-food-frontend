@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
-
-import { connect, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { addProduct } from "../../../actionCreators/order";
-import ProductListing from "../../reusable/ProductListing";
 import { fetchProducts } from "../../../actionCreators/product";
-import { getProductsArray } from "../../../selectors";
+import { getActiveProductsArray } from "../../../selectors";
 
-const CheckoutProducts = ({ products, fetchProducts }) => {
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+import ProductListing from "../../reusable/ProductListing";
 
+const CheckoutProducts = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+  
+  const products = useSelector(({ products: { byId }}) => getActiveProductsArray(byId))
 
   const addProductToOrder = (product, quantity) => () =>
     dispatch(addProduct(product, quantity));
 
-  const PRODUCTS_MAP = products.map((product, index) => (
+  const PRODUCTS_MAP = products.map((product) => (
     <ProductListing
       key={product.id}
       product={product}
@@ -32,10 +33,4 @@ const CheckoutProducts = ({ products, fetchProducts }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  products: getProductsArray(state.products.byId)
-});
-
-const mapDispatchToProps = { fetchProducts };
-
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutProducts);
+export default CheckoutProducts
