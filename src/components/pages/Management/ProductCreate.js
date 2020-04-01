@@ -6,8 +6,8 @@ import ProductForm from '../../reusable/ProductForm'
 const ProductCreate = () => (
   <>
     <div className="management__toolbar">
-      <Link to="/management" className="management__toolbar-button">
-        Add new product
+      <Link to="/management/products" className="management__toolbar-button">
+        Cancel
       </Link>
     </div>
 
