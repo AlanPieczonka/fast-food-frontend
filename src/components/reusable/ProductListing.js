@@ -1,21 +1,48 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 
-import { addProduct } from "../../actionCreators/order";
 import ProductCard from "./ProductCard";
 import IconPlus from "../../assets/icons/Plus";
-import { useModal } from '../../hooks/modal';
-import Modal from './Modal'
+import IconClose from "../../assets/icons/Close";
+import { useModal } from "../../hooks/modal";
+import Modal from "./Modal";
 
-export default function ProductListing({ product }) {
-  const { name, thumbnail_url: thumbnailUrl, price } = product;
+export default function ProductListing({
+  product,
+  showActions,
+  quantity,
+  onAdd,
+  onRemove,
+  onUpdateQuantity
+}) {
+  const { name, thumbnailUrl, quantityLimit, price } = product;
 
   const productPrice = `${price} zł`;
 
-  const [quantity, setQuantity] = useState(1)
-  const dispatch = useDispatch()
+  const [localQuantity, setLocalQuantity] = useState(1);
 
-  const { isOpen, openModal, closeModal } = useModal()
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const updateProductQuantity = newQuantity => () => {
+    if (newQuantity <= 0) {
+      return;
+    }
+
+    if (newQuantity >= quantityLimit) {
+      return;
+    }
+
+    return setQuantity(newQuantity);
+  };
+
+  const setQuantity = quantity => {
+    if (onUpdateQuantity) {
+      onUpdateQuantity(quantity);
+    }
+
+    setLocalQuantity(quantity);
+  };
+
+  const productQuantity = quantity !== undefined ? quantity : localQuantity;
 
   return (
     <div key={name} className="p-listing -rounded -hidden">
@@ -28,37 +55,61 @@ export default function ProductListing({ product }) {
 
       <div className="p-listing__content -with-actions">
         <div className="p-listing__details">
-          <h2 className="p-listing__heading">{name}</h2>
+          <div className="p-listing__heading-wrapper">
+            <h2 className="p-listing__heading">{name}</h2>
+
+            {onRemove && (
+              <button className="p-listing__remove" onClick={onRemove}>
+                <IconClose />
+              </button>
+            )}
+          </div>
+
           <Modal
             Component={ProductCard}
             isOpen={isOpen}
             onRequestClose={closeModal}
             product={product}
-          />            
+          />
           <div className="p-listing__footer">
             <span className="p-listing__quantity">
-              <input type="submit" value="-" onClick={() => setQuantity(quantity - 1 > 1 ? quantity - 1 : 1)} readOnly />
+              <input
+                type="submit"
+                value="-"
+                onClick={updateProductQuantity(productQuantity - 1)}
+                readOnly
+              />
 
-              <input type="text" value={quantity} readOnly />
+              <input type="text" value={productQuantity} readOnly />
 
-              <input type="submit" value="+" onClick={() => setQuantity(quantity + 1 < 10 ? quantity + 1 : 10)} readOnly />
+              <input
+                type="submit"
+                value="+"
+                onClick={updateProductQuantity(productQuantity + 1)}
+                readOnly
+              />
             </span>
             <span className="p-listing__price">{productPrice}</span>
           </div>
         </div>
-        <div className="p-listing__actions">
-          <button onClick={() => dispatch(addProduct({
-            productId: product.id,
-            quantity
-          }))} className="p-listing__actions-button -icon">
-            <IconPlus /> Add
-          </button>
 
-          <button className="p-listing__actions-button -secondary">
-            Customize
-          </button>
-        </div>
+        {onAdd && (
+          <div className="p-listing__actions">
+            <button
+              onClick={onAdd(product, productQuantity)}
+              className="p-listing__actions-button -icon"
+            >
+              <IconPlus /> Add
+            </button>
+
+            <button className="p-listing__actions-button -secondary">
+              Customize
+            </button>
+          </div>
+        )}
+
+        {onRemove && <div></div>}
       </div>
     </div>
   );
-};
+}

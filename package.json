@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "formik": "^2.1.4",
+    "jsonapi-serializer": "^3.6.6",
     "lodash.sumby": "^4.6.0",
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
