@@ -1,23 +1,27 @@
-import React, { Component } from "react";
-import BurgerIcon from "./BurgerIcon";
+import React from "react";
+import { useSelector } from "react-redux";
+
+import BurgerIcon from "../../assets/icons/Burger";
 import ButtonGroup from "./ButtonGroup";
 import OrganizationLogo from "./OrganizationLogo";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-export default class Navbar extends Component {
-  render() {
-    return (
-      <nav className="navbar">
-        <BurgerIcon />
+const Navbar = () => {
+  const { logo } = useSelector(({ organization }) => organization)
 
-        <ButtonGroup />
+  return (
+    <nav className="navbar">
+      <BurgerIcon />
 
-        <div className="navbar__right">
-          <ThemeSwitcher />
+      <ButtonGroup />
 
-          <OrganizationLogo />
-        </div>
-      </nav>
-    );
-  }
+      <div className="navbar__right">
+        <ThemeSwitcher />
+
+        <OrganizationLogo src={logo} />
+      </div>
+    </nav>
+  );
 }
+
+export default Navbar
