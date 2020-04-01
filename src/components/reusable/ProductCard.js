@@ -3,8 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProductCard = (
-  { product: { name, thumbnail_url: thumbnailUrl, price, id, description } },
-  index
+  { product: { name, thumbnailUrl, price, id, description } }
 ) => {
   const removeProduct = () => {};
 

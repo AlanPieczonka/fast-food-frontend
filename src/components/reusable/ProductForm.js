@@ -1,32 +1,18 @@
 import React, { useState } from "react";
-
 import { withRouter } from "react-router-dom";
+import Switch from "react-switch";
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field } from "formik";
+import { updatedDiff } from 'deep-object-diff';
+
 import Dropzone from "./Dropzone";
-import { toBase64 } from "./helpers";
 import spin from "../../assets/icons/spin.svg";
+import Input from "../reusable/Input"
+import { createProduct, updateProduct } from '../../actionCreators/product'
+import { uploadImage } from "../../api/images";
 
-const Input = props => (
-  <>
-    {!!props.label && (
-      <label className="form__label" htmlFor={props.name}>
-        {props.label}
-      </label>
-    )}
-
-    <input
-      className="form__input --margin-top"
-      type="text"
-      {...props}
-      id={props.name}
-    />
-  </>
-);
-
-const ProductForm = ({ initialValues = {}, isEditing, history }) => {
-  const addProduct = () => {};
-  const updateProduct = () => {};
-  const uploadImage = () => {};
+const ProductForm = ({ initialValues = { name: '', description: '', photoUrl: '', price: 15.15, active: true }, isEditing, history }) => {
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = values => async e => {
@@ -34,33 +20,28 @@ const ProductForm = ({ initialValues = {}, isEditing, history }) => {
 
     setIsLoading(true);
 
-    let file = null;
     let variables = { ...values };
 
-    if (values.image) {
-      file = await toBase64(values.image);
-      const {
-        data: {
-          createUpload: { imageUrl: photoUrl }
-        }
-      } = await uploadImage({ variables: { file } });
+    if (values.photoUrl instanceof File) {
+      const photoUrl = await uploadImage(values.photoUrl)
+
       variables = { ...variables, photoUrl, thumbnailUrl: photoUrl };
     }
 
     if (isEditing) {
       try {
-        await updateProduct({ variables });
+        await dispatch(updateProduct(parseInt(initialValues.id), updatedDiff(initialValues, variables)));
         setIsLoading(false);
-        return history.push("/management");
+        return history.push("/management/products");
       } catch (err) {
         setIsLoading(false);
       }
     }
 
     try {
-      await addProduct({ variables });
+      await dispatch(createProduct(variables));
       setIsLoading(false);
-      history.push("/management");
+      return history.push("/management/products");
     } catch (err) {
       setIsLoading(false);
     }
@@ -69,43 +50,75 @@ const ProductForm = ({ initialValues = {}, isEditing, history }) => {
   return (
     <Formik
       initialValues={initialValues}
-      render={({ values, setFieldValue }) => (
+      render={({ values, dirty, setFieldValue }) => (
         <Form onSubmit={handleSubmit(values)} className="form__group --limited">
           <Field
             name="name"
-            render={({ field }) => <Input {...field} label="Name" />}
-          />
+          >
+            {({ field }) => <Input {...field} label="Name" />}
+          </Field>
 
           <Field
-            name="image"
-            render={({ field, form }) => (
+            name="photoUrl"
+          >
+            {({ field }) => (
               <Dropzone
                 label="Image"
                 photoUrl={values.photoUrl}
                 {...field}
-                onChange={image => form.setFieldValue(field.name, image)}
+                onChange={image => setFieldValue(field.name, image)}
               />
             )}
-          />
+          </Field>
 
           <Field
             name="description"
-            render={({ field, form }) => (
+          >
+            {({ field }) => (
               <Input {...field} label="Description" />
             )}
-          />
+          </Field>
 
           <Field
             name="price"
-            render={({ field }) => (
+          >
+            {({ field }) => (
               <Input {...field} type="number" label="Price" />
             )}
-          />
+          </Field>
+
+          <Field
+            name="active"
+          >
+            {({ field }) => (
+              <>
+                <label className="form__label" htmlFor={field.name}>
+                  Active
+                </label>
+                <Switch
+                  checked={field.value}
+                  onChange={active => setFieldValue(field.name, active)}
+                  handleDiameter={12}
+                  onColor="#E74C3C"
+                  onHandleColor="#FFFFFF"
+                  offColor="#DBDBDB"
+                  offHandleColor="#ADADAD"
+                  boxShadow={null}
+                  activeBoxShadow={null}
+                  height={24}
+                  width={44}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                />
+              </>
+            )}
+          </Field>
 
           <button
             type="submit"
             className={`management__toolbar-button --stacked ${!!isLoading &&
               "--loading"}`}
+            disabled={(isEditing && !dirty)}
           >
             {isLoading ? (
               <img
@@ -116,8 +129,8 @@ const ProductForm = ({ initialValues = {}, isEditing, history }) => {
             ) : isEditing ? (
               "Update Product"
             ) : (
-              "Add Product"
-            )}
+                  "Add Product"
+                )}
           </button>
         </Form>
       )}

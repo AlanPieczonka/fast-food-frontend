@@ -102,7 +102,7 @@ export default function ProductListing({
               <IconPlus /> Add
             </button>
 
-            <button className="p-listing__actions-button -secondary">
+            <button className="p-listing__actions-button -secondary" onClick={openModal}>
               Customize
             </button>
           </div>
