@@ -50,7 +50,8 @@ const ProductForm = ({ initialValues = { name: '', description: '', photoUrl: ''
   return (
     <Formik
       initialValues={initialValues}
-      render={({ values, dirty, setFieldValue }) => (
+    >
+      {({ values, dirty, setFieldValue }) => (
         <Form onSubmit={handleSubmit(values)} className="form__group --limited">
           <Field
             name="name"
@@ -134,7 +135,7 @@ const ProductForm = ({ initialValues = { name: '', description: '', photoUrl: ''
           </button>
         </Form>
       )}
-    />
+    </Formik>
   );
 };
 
