@@ -15,7 +15,7 @@ export default function BurgerIcon() {
         Orders
       </NavLink>
 
-      <NavLink to='/management' className={`${!canAccessManagement && '--muted'}`} activeClassName="--active">
+      <NavLink to='/management/products' isActive={(_, location) => location.pathname.includes('management')} className={`${!canAccessManagement && '--muted'}`} activeClassName="--active">
         Management
       </NavLink>
     </div>
