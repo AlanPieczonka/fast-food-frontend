@@ -13,7 +13,7 @@ import { useModal } from "../../hooks/modal";
 import { calculateSum } from "./../../utils/order";
 
 export default function Sidebar() {
-  const order = getOrdersArray(useSelector(state => state));
+  const order = useSelector(state => getOrdersArray(state));
 
   const dispatch = useDispatch();
 

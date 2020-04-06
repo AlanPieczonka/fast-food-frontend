@@ -41,3 +41,20 @@
     padding: $m-3 $m-4
     @include themify
       border-top: 1px solid themed('borderColorStrong')
+
+.sidebar-management
+  padding: 0
+  & > a
+    display: flex
+    padding: 1rem 1rem 1rem 2rem
+    text-decoration: none
+    color: #ADADAD
+    border-bottom: 1px solid #DBDBDB
+    & > .svg
+      margin-right: 12px
+      fill: #ADADAD;
+    &.--active
+      color: #626262
+      background: #F4F4F4 0% 0% no-repeat padding-box
+      & > .svg
+        fill: #626262
