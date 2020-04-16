@@ -1,7 +1,7 @@
 import { SET_USER_THEME } from "../types";
 
 const initialState = {
-  theme: 'dark'
+  theme: 'light'
 };
 
 export default function(state = initialState, action) {
