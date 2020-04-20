@@ -138,15 +138,20 @@ class CurrentOrders extends React.Component {
     }
   }
 
+  archiveReadyOrders = () => this.setState({ ready: [] })
+
   render() {
     return (
-      <div>
+      <div className="current-orders">
         <div className="grid -three">
           <DragDropContext onDragEnd={this.onDragEnd}>
             <List header="To Do" droppableId="droppable" items={this.state.toDo} />
             <List header="In progress" droppableId="droppable2" items={this.state.inProgress} />
             <List header="Ready" droppableId="droppable3" items={this.state.ready} />
           </DragDropContext>
+        </div>
+        <div className="current-orders__actions">
+          <button className={`btn ${this.state.ready.length === 0 && '-disabled'}`} onClick={this.archiveReadyOrders}>Archive ready orders</button>
         </div>
       </div>
     )

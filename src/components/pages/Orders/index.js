@@ -15,11 +15,11 @@ export default () => {
     <>
       <div className="sidebar sidebar-management">
         <NavLink to="/orders/current" activeClassName="--active">
-          <ForkIcon />
+            <ForkIcon />
             Current orders
         </NavLink>
         <NavLink to="/orders/settings" activeClassName="--active">
-          <SettingsIcon />
+            <SettingsIcon />
             Settings
         </NavLink>
       </div>
