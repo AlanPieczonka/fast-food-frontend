@@ -92,7 +92,7 @@ class CurrentOrders extends React.Component {
     inProgress: [
       { id: 3, products: [{ productId: "2", quantity: 4 }, { productId: "3", quantity: 2 }] }
     ],
-    done: [
+    ready: [
       { id: 4, products: [{ productId: "2", quantity: 3 }, { productId: "5", quantity: 2 }] },
       { id: 5, products: [{ productId: "1", quantity: 3 }, { productId: "3", quantity: 2 }] },
       { id: 6, products: [{ productId: "2", quantity: 3 }, { productId: "3", quantity: 2 }] },
@@ -102,7 +102,7 @@ class CurrentOrders extends React.Component {
   id3List = {
     droppable: 'toDo',
     droppable2: 'inProgress',
-    droppable3: 'done'
+    droppable3: 'ready'
   };
 
   getList = id => this.state[this.id3List[id]];
@@ -145,7 +145,7 @@ class CurrentOrders extends React.Component {
           <DragDropContext onDragEnd={this.onDragEnd}>
             <List header="To Do" droppableId="droppable" items={this.state.toDo} />
             <List header="In progress" droppableId="droppable2" items={this.state.inProgress} />
-            <List header="Done" droppableId="droppable3" items={this.state.done} />
+            <List header="Ready" droppableId="droppable3" items={this.state.ready} />
           </DragDropContext>
         </div>
       </div>
