@@ -15,7 +15,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
-const List = ({ header, droppableId, items }) => {
+const List = ({ header, droppableId, items, archiveOrder }) => {
   return (
     <Droppable droppableId={droppableId}>
       {(provided, snapshot) => (
@@ -48,6 +48,7 @@ const List = ({ header, droppableId, items }) => {
                         </li>
                       ))}
                     </ul>
+                    <button onClick={archiveOrder(item.id)}>Archive</button>
                   </article>
                 )}
               </Draggable>
@@ -138,6 +139,15 @@ class CurrentOrders extends React.Component {
     }
   }
 
+  archiveOrder = (id) => {
+    return () => {
+      const key = Object.keys(this.state).find(key => this.state[key].find(product => product.id === id))
+
+      this.setState({
+        [key]: this.state[key].filter((product) => product.id !== id)
+      })
+    }
+  }
   archiveReadyOrders = () => this.setState({ ready: [] })
 
   render() {
@@ -145,9 +155,9 @@ class CurrentOrders extends React.Component {
       <div className="current-orders">
         <div className="grid -three">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <List header="To Do" droppableId="droppable" items={this.state.toDo} />
-            <List header="In progress" droppableId="droppable2" items={this.state.inProgress} />
-            <List header="Ready" droppableId="droppable3" items={this.state.ready} />
+            <List archiveOrder={this.archiveOrder} header="To Do" droppableId="droppable" items={this.state.toDo} />
+            <List archiveOrder={this.archiveOrder} header="In progress" droppableId="droppable2" items={this.state.inProgress} />
+            <List archiveOrder={this.archiveOrder} header="Ready" droppableId="droppable3" items={this.state.ready} />
           </DragDropContext>
         </div>
         <div className="current-orders__actions">
