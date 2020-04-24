@@ -125,7 +125,10 @@ class CurrentOrders extends React.Component {
       this.setState({
         [key]: this.state[key].filter((product) => product.id !== id)
       }, () => {
-        clearInterval(this.intervals.find(x => x.orderId === id).intervalId)
+        const intervalId = this.intervals.find(x => x.orderId === id) ? this.intervals.find(x => x.orderId === id).intervalId : null
+        if (intervalId) {
+          clearInterval(intervalId)
+        }
       })
     }
   }
