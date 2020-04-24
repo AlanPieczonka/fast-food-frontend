@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
 import Navbar from "./components/layout/Navbar";
 import Checkout from "./components/pages/Checkout";
 import Management from "./components/pages/Management";
 import Orders from "./components/pages/Orders";
 import withTheme from "./hocs/withTheme";
+
+import 'react-toastify/dist/ReactToastify.min.css';
 
 class Layout extends Component {
   updateVh = () => {
@@ -35,6 +38,7 @@ class Layout extends Component {
           <Route path="/management" component={Management} />
           <Route path="/" component={Checkout} />
         </Switch>
+        <ToastContainer />
       </Router>
     );
   }

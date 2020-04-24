@@ -1,87 +1,9 @@
 import React from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 
-const grid = 8
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid,
-  width: 250
-});
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: 'none',
-  background: isDragging ? 'lightgreen' : 'grey',
-  ...draggableStyle
-});
-
-const List = ({ header, droppableId, items, archiveOrder }) => {
-  return (
-    <Droppable droppableId={droppableId}>
-      {(provided, snapshot) => (
-        <div ref={provided.innerRef} {...provided.droppableProps} className="list" style={getListStyle(snapshot.isDraggingOver)}>
-          <header className="list__header">
-            {header}
-            <a>...</a>
-          </header>
-          <div className="list__cards">
-            {items.map((item, index) => (
-              <Draggable
-                key={item.id}
-                draggableId={`${item.id}`}
-                index={index}
-              >
-                {(provided, snapshot) => (
-                  <article ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                    style={
-                      getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    className="list__card">
-                    {item.id}
-                    <ul>
-                      {item.products.map(product => (
-                        <li key={product.productId}>
-                          <span>ID: {product.productId}</span>
-                          <span>quantity: {product.quantity}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button onClick={archiveOrder(item.id)}>Archive</button>
-                  </article>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        </div>
-      )}
-    </Droppable>
-  )
-}
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
-  return result;
-};
+import List from './List'
+import { reorder, move } from './List'
+import { showNotification } from '../../../../utils/notifications'
 
 class CurrentOrders extends React.Component {
 
@@ -97,7 +19,10 @@ class CurrentOrders extends React.Component {
       { id: 4, products: [{ productId: "2", quantity: 3 }, { productId: "5", quantity: 2 }] },
       { id: 5, products: [{ productId: "1", quantity: 3 }, { productId: "3", quantity: 2 }] },
       { id: 6, products: [{ productId: "2", quantity: 3 }, { productId: "3", quantity: 2 }] },
-    ]
+    ],
+    countdown: {
+      3: { count: 10 }
+    }
   }
 
   id3List = {
@@ -106,15 +31,42 @@ class CurrentOrders extends React.Component {
     droppable3: 'ready'
   };
 
+  componentDidMount() {
+    // because order with id of 3 is initially in inProgress list
+    this.intervals = [
+      { orderId: 3, intervalId: setInterval(() => {
+        const currentCount = this.state.countdown[3].count
+        this.setCountdown(3, currentCount)
+      }, 1000)}
+    ]
+  }
+
+  componentWillUnmount() {
+    this.intervals.forEach(({ intervalId }) => {
+      clearInterval(intervalId)
+    })
+    delete this.intervals
+  }
+
+  setCountdown(id, currentCount) {
+    if (currentCount > 1) {
+      this.setState({ countdown: { ...this.state.countdown, [id]: { count: currentCount - 1 } }})
+    } else {
+      showNotification('error', `We're running late on order number ${id}!`, 'TOP_RIGHT')
+      this.resetCountdown(id)
+    }
+  }
+
+  resetCountdown(id) {
+    this.setState({ countdown: { ...this.state.countdown, [id]: { count: 10 } }})
+  }
+
   getList = id => this.state[this.id3List[id]];
 
   onDragEnd = result => {
     const { source, destination } = result;
-
     // dropped outside the list
-    if (!destination) {
-      return;
-    }
+    if (!destination) return
 
     if (source.droppableId === destination.droppableId) {
       const items = reorder(
@@ -132,6 +84,33 @@ class CurrentOrders extends React.Component {
         destination
       );
 
+      const compare = otherArray => (current) => otherArray.filter(other => other.id == current.id).length == 0
+      const id = result[destination.droppableId].filter(compare(this.state[this.id3List[destination.droppableId]]))[0].id 
+
+      if (source.droppableId === 'droppable2') {
+        const countdown = { ...this.state.countdown }
+
+        delete countdown[id]
+        
+        this.setState({ countdown }, () => {
+          clearInterval(this.intervals.find(x => x.orderId === id).intervalId)
+          this.intervals = this.intervals.filter(x => x.orderId !== id)
+        })
+      }
+
+      if (destination.droppableId === 'droppable2') {
+        this.setState({ countdown: {...this.state.countdown, [id]: { count: 10 } }}, () => {
+            this.intervals.push({ orderId: id, intervalId: setInterval(() => {
+              const currentCount = this.state.countdown[id].count
+              this.setCountdown(id, currentCount)
+            }, 1000)})
+        })
+      }
+
+      if (destination.droppableId === 'droppable3') {
+        showNotification('success', `Order with the id of ${id} is ready!`, 'TOP_RIGHT')
+      }
+
       this.setState({
         [this.id3List[source.droppableId]]: result[source.droppableId],
         [this.id3List[destination.droppableId]]: result[destination.droppableId]
@@ -145,6 +124,8 @@ class CurrentOrders extends React.Component {
 
       this.setState({
         [key]: this.state[key].filter((product) => product.id !== id)
+      }, () => {
+        clearInterval(this.intervals.find(x => x.orderId === id).intervalId)
       })
     }
   }
@@ -156,7 +137,7 @@ class CurrentOrders extends React.Component {
         <div className="grid -three">
           <DragDropContext onDragEnd={this.onDragEnd}>
             <List archiveOrder={this.archiveOrder} header="To Do" droppableId="droppable" items={this.state.toDo} />
-            <List archiveOrder={this.archiveOrder} header="In progress" droppableId="droppable2" items={this.state.inProgress} />
+            <List archiveOrder={this.archiveOrder} header="In progress" droppableId="droppable2" items={this.state.inProgress} countdown={this.state.countdown}  />
             <List archiveOrder={this.archiveOrder} header="Ready" droppableId="droppable3" items={this.state.ready} />
           </DragDropContext>
         </div>
