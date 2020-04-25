@@ -11,7 +11,7 @@ export default function BurgerIcon() {
         Checkout
       </NavLink>
 
-      <NavLink to='/orders' activeClassName="--active">
+      <NavLink to='/orders/current' isActive={(_, location) => location.pathname.includes('orders')} activeClassName="--active">
         Orders
       </NavLink>
 
