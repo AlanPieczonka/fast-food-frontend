@@ -84,7 +84,7 @@ class CurrentOrders extends React.Component {
         destination
       );
 
-      const compare = otherArray => (current) => otherArray.filter(other => other.id == current.id).length == 0
+      const compare = otherArray => (current) => otherArray.filter(other => other.id === current.id).length === 0
       const id = result[destination.droppableId].filter(compare(this.state[this.id3List[destination.droppableId]]))[0].id 
 
       if (source.droppableId === 'droppable2') {
