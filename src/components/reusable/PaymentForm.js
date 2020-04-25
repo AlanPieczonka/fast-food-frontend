@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 
 import { saveOrder } from "../../actionCreators/order"
 import { calculateSum } from "./../../utils/order"
+import { showNotification } from "../../utils/notifications"
 
 export default function PaymentForm({ order, closeModal }) {
     const sum = calculateSum(order)
@@ -11,6 +12,7 @@ export default function PaymentForm({ order, closeModal }) {
     const handleSubmit = async () => {
         await dispatch(saveOrder())
         closeModal()
+        showNotification('success', 'Thank you! Your order is almost ready...', 'TOP_CENTER')
     }
 
     return (
