@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import { useAuth0 } from "./api/auth/auth0";
 
 import Navbar from "./components/layout/Navbar";
 import Checkout from "./components/pages/Checkout";
@@ -11,12 +13,14 @@ import Orders from "./components/pages/Orders";
 import ProductUpdated from "./components/notifications/ProductUpdated";
 import withTheme from "./hocs/withTheme";
 
-import 'react-toastify/dist/ReactToastify.min.css';
+import "react-toastify/dist/ReactToastify.min.css";
 
 import useChannel from "./hooks/websockets";
-import { updateProductLocally } from "./actionCreators/product"
+import { updateProductLocally } from "./actionCreators/product";
 
 const Layout = () => {
+  const { loading } = useAuth0();
+
   const updateVh = () => {
     let vh = window.innerHeight * 0.01;
 
@@ -24,12 +28,14 @@ const Layout = () => {
   };
 
   const dispatch = useDispatch();
-  useChannel('product:update', (event, payload) => {
+  useChannel("product:update", (event, payload) => {
     if (event === "product_updated") {
-      dispatch(updateProductLocally(parseInt(payload.id), payload.attributes))
-      toast(() => <ProductUpdated id={payload.id} attributes={payload.attributes} />)
+      dispatch(updateProductLocally(parseInt(payload.id), payload.attributes));
+      toast(() => (
+        <ProductUpdated id={payload.id} attributes={payload.attributes} />
+      ));
     }
-  })
+  });
 
   useEffect(() => {
     updateVh();
@@ -38,8 +44,8 @@ const Layout = () => {
 
     return () => {
       window.removeEventListener("resize", resizeListener);
-    }
-  }, [])
+    };
+  }, []);
 
   return (
     <Router>
@@ -50,9 +56,10 @@ const Layout = () => {
         <Route path="/management" component={Management} />
         <Route path="/" component={Checkout} />
       </Switch>
+
       <ToastContainer />
     </Router>
   );
-}
+};
 
 export default withTheme(Layout);
