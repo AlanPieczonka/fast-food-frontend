@@ -13,7 +13,11 @@ import history from "./utils/history";
 
 import "./assets/styles/main.sass";
 
-const { REACT_APP_AUTH0_DOMAIN, REACT_APP_AUTH0_CLIENT_ID } = process.env;
+const {
+  REACT_APP_AUTH0_DOMAIN,
+  REACT_APP_AUTH0_CLIENT_ID,
+  REACT_APP_AUTH0_AUDIENCE,
+} = process.env;
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -29,6 +33,7 @@ ReactDOM.render(
       <Auth0Provider
         domain={REACT_APP_AUTH0_DOMAIN}
         client_id={REACT_APP_AUTH0_CLIENT_ID}
+        audience={REACT_APP_AUTH0_AUDIENCE}
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
       >

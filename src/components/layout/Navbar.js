@@ -10,7 +10,13 @@ import ThemeSwitcher from "./ThemeSwitcher";
 
 const Navbar = () => {
   const { logo } = useSelector(({ organization }) => organization);
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+  const {
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+    getTokenSilently,
+  } = useAuth0();
 
   return (
     <nav className="navbar">
