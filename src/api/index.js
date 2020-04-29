@@ -1,13 +1,21 @@
-const defaultConfig = {
-  method: "GET"
-};
+import { store } from "../store";
 
-const baseUrl = "http://localhost:4000/api";
+const baseUrl = process.env.REACT_APP_API_HOST || "http://localhost:4000";
+const apiPrefix = "/api";
 
 const api = async (relativeUrl, params = {}) => {
-  const res = await fetch(`${baseUrl}${relativeUrl}`, {
+  const token = store.getState().user.accessToken;
+
+  const defaultConfig = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const res = await fetch(`${baseUrl}${apiPrefix}${relativeUrl}`, {
     ...defaultConfig,
-    ...params
+    ...params,
   });
 
   if (res.statusText === "No Content") {

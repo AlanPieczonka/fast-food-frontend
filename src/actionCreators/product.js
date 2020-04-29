@@ -3,11 +3,11 @@ import * as types from "../types";
 import api from "../api";
 import { serialize, deserialize } from "../serializers/product";
 
-export const fetchProducts = () => async dispatch => {
+export const fetchProducts = () => async (dispatch) => {
   const response = await api("/products");
 
   const products = await deserialize(response);
-  
+
   const productsById = products.reduce(
     (acc, cur) => (acc = { ...acc, [cur.id]: cur }),
     {}
@@ -15,67 +15,67 @@ export const fetchProducts = () => async dispatch => {
 
   dispatch({
     type: types.FETCH_PRODUCTS,
-    payload: productsById
+    payload: productsById,
   });
 };
 
-export const createProduct = (product) => async dispatch => {
-  const serializedProduct = await serialize(product)
+export const createProduct = (product) => async (dispatch) => {
+  const serializedProduct = await serialize(product);
 
   const response = await api("/products", {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/vnd.api+json',
-      'Accept': 'application/vnd.api+json'
+      "Content-Type": "application/vnd.api+json",
+      Accept: "application/vnd.api+json",
     },
-    body: JSON.stringify(serializedProduct)
-  })
+    body: JSON.stringify(serializedProduct),
+  });
 
-  const savedProduct = await deserialize(response)
+  const savedProduct = await deserialize(response);
 
   dispatch({
     type: types.CREATE_PRODUCT,
-    payload: { product: savedProduct }
-  })
-}
+    payload: { product: savedProduct },
+  });
+};
 
-export const updateProduct = (id, changes) => async dispatch => {
+export const updateProduct = (id, changes) => async (dispatch) => {
   const serializedProduct = await serialize({
     ...changes,
-    id
-  })
+    id,
+  });
 
   const response = await api(`/products/${id}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/vnd.api+json',
-      'Accept': 'application/vnd.api+json'
+      "Content-Type": "application/vnd.api+json",
+      Accept: "application/vnd.api+json",
     },
-    body: JSON.stringify(serializedProduct)
-  })
+    body: JSON.stringify(serializedProduct),
+  });
 
-  const deserializedProduct = await deserialize(response)
+  const deserializedProduct = await deserialize(response);
 
   dispatch({
     type: types.UPDATE_PRODUCT,
-    payload: { id, product: deserializedProduct }
-  })
-}
+    payload: { id, product: deserializedProduct },
+  });
+};
 
-export const updateProductLocally = (id, changes) => async dispatch => {
+export const updateProductLocally = (id, changes) => async (dispatch) => {
   dispatch({
     type: types.UPDATE_PRODUCT,
-    payload: { id, product: changes }
-  })
-}
+    payload: { id, product: changes },
+  });
+};
 
-export const deleteProduct = (id) => async dispatch => {
+export const deleteProduct = (id) => async (dispatch) => {
   await api(`/products/${id}`, {
-    method: 'DELETE'
-  })
+    method: "DELETE",
+  });
 
   dispatch({
     type: types.DELETE_PRODUCT,
-    payload: { id }
-  })
-}
+    payload: { id },
+  });
+};
