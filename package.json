@@ -6,8 +6,6 @@
     "deep-object-diff": "^1.1.0",
     "formik": "^2.1.4",
     "jsonapi-serializer": "^3.6.6",
-    "lodash.difference": "^4.5.0",
-    "lodash.omit": "^4.5.0",
     "lodash.sumby": "^4.6.0",
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
