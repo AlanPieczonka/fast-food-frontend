@@ -10,7 +10,11 @@ const api = async (relativeUrl, params = {}) => {
     ...params
   });
 
-  return res.json();
+  if (res.statusText === "No Content") {
+    return res.text()
+  }
+
+  return res.json()
 };
 
 export default api;

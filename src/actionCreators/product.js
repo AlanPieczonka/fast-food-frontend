@@ -1,13 +1,13 @@
 import * as types from "../types";
 
 import api from "../api";
-import { deserialize } from "../serializers/product";
+import { serialize, deserialize } from "../serializers/product";
 
 export const fetchProducts = () => async dispatch => {
   const response = await api("/products");
 
   const products = await deserialize(response);
-
+  
   const productsById = products.reduce(
     (acc, cur) => (acc = { ...acc, [cur.id]: cur }),
     {}
@@ -20,25 +20,52 @@ export const fetchProducts = () => async dispatch => {
 };
 
 export const createProduct = (product) => async dispatch => {
-  await new Promise(resolve => setTimeout(resolve, 500))
+  const serializedProduct = await serialize(product)
+
+  const response = await api("/products", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/vnd.api+json',
+      'Accept': 'application/vnd.api+json'
+    },
+    body: JSON.stringify(serializedProduct)
+  })
+
+  const savedProduct = await deserialize(response)
 
   dispatch({
     type: types.CREATE_PRODUCT,
-    payload: product
+    payload: { product: savedProduct }
   })
 }
 
 export const updateProduct = (id, changes) => async dispatch => {
-  await new Promise(resolve => setTimeout(resolve, 500))
+  const serializedProduct = await serialize({
+    ...changes,
+    id
+  })
+
+  const response = await api(`/products/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/vnd.api+json',
+      'Accept': 'application/vnd.api+json'
+    },
+    body: JSON.stringify(serializedProduct)
+  })
+
+  const deserializedProduct = await deserialize(response)
 
   dispatch({
     type: types.UPDATE_PRODUCT,
-    payload: { id, changes }
+    payload: { id, product: deserializedProduct }
   })
 }
 
 export const deleteProduct = (id) => async dispatch => {
-  await new Promise(resolve => setTimeout(resolve, 500))
+  await api(`/products/${id}`, {
+    method: 'DELETE'
+  })
 
   dispatch({
     type: types.DELETE_PRODUCT,
