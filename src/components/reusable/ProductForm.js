@@ -11,7 +11,7 @@ import Input from "../reusable/Input"
 import { createProduct, updateProduct } from '../../actionCreators/product'
 import { uploadImage } from "../../api/images";
 
-const ProductForm = ({ initialValues = { name: '', description: '', photoUrl: '', price: 15.15, active: true }, isEditing, history }) => {
+const ProductForm = ({ initialValues = { name: '', description: '', photoUrl: '', price: 15.15, quantityLimit: 10, active: true }, isEditing, history }) => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false);
 
@@ -85,6 +85,14 @@ const ProductForm = ({ initialValues = { name: '', description: '', photoUrl: ''
           >
             {({ field }) => (
               <Input {...field} type="number" label="Price" />
+            )}
+          </Field>
+
+          <Field
+            name="quantityLimit"
+          >
+            {({ field }) => (
+              <Input {...field} type="number" label="Quantity limit" min="1" />
             )}
           </Field>
 
