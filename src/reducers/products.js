@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
     case UPDATE_PRODUCT: {
       const products = { ...state }
       products.byId[action.payload.id] = {
+        ...products.byId[action.payload.id],
         ...action.payload.product
       }
 
