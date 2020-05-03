@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 
 import Layout from "./Layout";
+import SocketProvider from "./api/websockets"
 import * as serviceWorker from "./serviceWorker";
 import { store, persistor } from "./store";
 
@@ -13,7 +14,9 @@ import "./assets/styles/main.sass";
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Layout />
+      <SocketProvider wsUrl={"ws://localhost:4000/socket"}>
+        <Layout />
+      </SocketProvider>
     </PersistGate>
   </Provider>,
   document.getElementById("root")

@@ -62,6 +62,13 @@ export const updateProduct = (id, changes) => async dispatch => {
   })
 }
 
+export const updateProductLocally = (id, changes) => async dispatch => {
+  dispatch({
+    type: types.UPDATE_PRODUCT,
+    payload: { id, product: changes }
+  })
+}
+
 export const deleteProduct = (id) => async dispatch => {
   await api(`/products/${id}`, {
     method: 'DELETE'

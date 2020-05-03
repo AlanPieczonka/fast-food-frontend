@@ -10,7 +10,7 @@
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
     "parse": "^2.11.0",
-    "phoenix": "^1.4.13",
+    "phoenix": "^1.5.1",
     "react": "^16.12.0",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.12.0",
