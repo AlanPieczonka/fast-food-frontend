@@ -1,15 +1,23 @@
-import { SET_USER_THEME } from "../types";
+import { SET_USER_THEME, SET_USER_PROFILE } from "../types";
 
 const initialState = {
-  theme: 'light'
+  profile: null,
+  token: null,
+  theme: "light",
 };
 
-export default function(state = initialState, action) {
-  switch (action.type) {
+export default function (state = initialState, { type, payload }) {
+  switch (type) {
     case SET_USER_THEME:
       return {
         ...state,
-        theme: action.payload
+        theme: payload,
+      };
+    case SET_USER_PROFILE:
+      return {
+        ...state,
+        profile: payload.profile,
+        accessToken: payload.accessToken,
       };
     default:
       return state;
