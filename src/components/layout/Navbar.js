@@ -8,10 +8,13 @@ import ButtonGroup from "./ButtonGroup";
 import OrganizationLogo from "./OrganizationLogo";
 import ThemeSwitcher from "./ThemeSwitcher";
 
+import Logout from "../../assets/icons/Logout";
+
 const Navbar = () => {
   const { logo } = useSelector(({ organization }) => organization);
 
   const { isAuthenticated, logout, getTokenSilently } = useAuth0();
+  const logOut = () => logout();
 
   return (
     <nav className="navbar">
@@ -24,7 +27,11 @@ const Navbar = () => {
 
         <OrganizationLogo src={logo} />
 
-        <button onClick={() => logout()}>Logout</button>
+        <Logout
+          onClick={logOut}
+          className="svg -primary -button ml-3"
+          role="button"
+        />
       </div>
     </nav>
   );
