@@ -2,16 +2,27 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { useAuth0 } from "./api/auth/auth0";
 
+import { useAuth0 } from "./api/auth/auth0";
 import Navbar from "./components/layout/Navbar";
 import Checkout from "./components/pages/Checkout";
 import Management from "./components/pages/Management";
 import Orders from "./components/pages/Orders";
 import ProductUpdated from "./components/notifications/ProductUpdated";
+import Login from "./components/pages/Login";
 import withTheme from "./hocs/withTheme";
+import ProtectedRoute from "./ProtectedRoute";
+import GuestRoute from "./GuestRoute";
+
+import { GuestLayout, DashboardLayout } from "./components/layout/core";
+import history from "./utils/history";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -19,7 +30,7 @@ import useChannel from "./hooks/websockets";
 import { updateProductLocally } from "./actionCreators/product";
 
 const Layout = () => {
-  const { loading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const updateVh = () => {
     let vh = window.innerHeight * 0.01;
@@ -48,13 +59,25 @@ const Layout = () => {
   }, []);
 
   return (
-    <Router>
-      <Navbar />
-
+    <Router history={history}>
       <Switch>
-        <Route path="/orders" component={Orders} />
-        <Route path="/management" component={Management} />
-        <Route path="/" component={Checkout} />
+        <GuestRoute path="/login" component={Login} layout={GuestLayout} />
+
+        <ProtectedRoute
+          path="/orders"
+          component={Orders}
+          layout={DashboardLayout}
+        />
+        <ProtectedRoute
+          path="/management"
+          component={Management}
+          layout={DashboardLayout}
+        />
+        <ProtectedRoute
+          path="/"
+          component={Checkout}
+          layout={DashboardLayout}
+        />
       </Switch>
 
       <ToastContainer />

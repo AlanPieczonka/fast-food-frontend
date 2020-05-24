@@ -6,6 +6,10 @@ import { serialize, deserialize } from "../serializers/product";
 export const fetchProducts = () => async (dispatch) => {
   const response = await api("/products");
 
+  if (!response) {
+    return;
+  }
+
   const products = await deserialize(response);
 
   const productsById = products.reduce(

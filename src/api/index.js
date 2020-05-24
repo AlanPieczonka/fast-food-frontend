@@ -4,25 +4,29 @@ const baseUrl = process.env.REACT_APP_API_HOST || "http://localhost:4000";
 const apiPrefix = "/api";
 
 const api = async (relativeUrl, params = {}) => {
-  const token = store.getState().user.accessToken;
+  try {
+    const token = store.getState().user.accessToken;
 
-  const defaultConfig = {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+    const defaultConfig = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-  const res = await fetch(`${baseUrl}${apiPrefix}${relativeUrl}`, {
-    ...defaultConfig,
-    ...params,
-  });
+    const res = await fetch(`${baseUrl}${apiPrefix}${relativeUrl}`, {
+      ...defaultConfig,
+      ...params,
+    });
 
-  if (res.statusText === "No Content") {
-    return res.text()
+    if (res.statusText === "No Content") {
+      return res.text();
+    }
+
+    return res.json();
+  } catch (err) {
+    console.log(err);
   }
-
-  return res.json()
 };
 
 export default api;
