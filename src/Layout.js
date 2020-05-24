@@ -2,12 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { useAuth0 } from "./api/auth/auth0";
@@ -18,9 +13,8 @@ import Orders from "./components/pages/Orders";
 import ProductUpdated from "./components/notifications/ProductUpdated";
 import Login from "./components/pages/Login";
 import withTheme from "./hocs/withTheme";
-import ProtectedRoute from "./ProtectedRoute";
-import GuestRoute from "./GuestRoute";
 
+import { GuestRoute, ProtectedRoute } from "./utils/route";
 import { GuestLayout, DashboardLayout } from "./components/layout/core";
 import history from "./utils/history";
 
@@ -59,29 +53,23 @@ const Layout = () => {
   }, []);
 
   return (
-    <Router history={history}>
-      <Switch>
-        <GuestRoute path="/login" component={Login} layout={GuestLayout} />
+    <Switch>
+      <GuestRoute path="/login" component={Login} layout={GuestLayout} />
 
-        <ProtectedRoute
-          path="/orders"
-          component={Orders}
-          layout={DashboardLayout}
-        />
-        <ProtectedRoute
-          path="/management"
-          component={Management}
-          layout={DashboardLayout}
-        />
-        <ProtectedRoute
-          path="/"
-          component={Checkout}
-          layout={DashboardLayout}
-        />
-      </Switch>
+      <ProtectedRoute
+        path="/orders"
+        component={Orders}
+        layout={DashboardLayout}
+      />
 
-      <ToastContainer />
-    </Router>
+      <ProtectedRoute
+        path="/management"
+        component={Management}
+        layout={DashboardLayout}
+      />
+
+      <ProtectedRoute path="/" component={Checkout} layout={DashboardLayout} />
+    </Switch>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Auth0Provider } from "./api/auth/auth0";
@@ -38,7 +39,9 @@ ReactDOM.render(
         onRedirectCallback={onRedirectCallback}
       >
         <SocketProvider wsUrl={"ws://localhost:4000/socket"}>
-          <Layout />
+          <Router history={history}>
+            <Layout />
+          </Router>
         </SocketProvider>
       </Auth0Provider>
     </PersistGate>

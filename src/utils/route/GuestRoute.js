@@ -1,7 +1,9 @@
 import React from "react";
+
 import { Route, Redirect, useHistory } from "react-router-dom";
-import { useAuth0 } from "./api/auth/auth0";
 import { get } from "lodash";
+
+import { useAuth0 } from "../../api/auth/auth0";
 
 const GuestRoute = ({ component: Component, layout: Layout, ...rest }) => {
   const { isAuthenticated } = useAuth0();

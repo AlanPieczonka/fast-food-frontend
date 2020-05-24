@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuth0 } from "./api/auth/auth0";
+import { useAuth0 } from "../../api/auth/auth0";
 
 const ProtectedRoute = ({ component: Component, layout: Layout, ...rest }) => {
   const { isAuthenticated } = useAuth0();
