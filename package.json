@@ -7,7 +7,7 @@
     "formik": "^2.1.4",
     "jsonapi-serializer": "^3.6.6",
     "lodash.sumby": "^4.6.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "normalize.css": "^8.0.1",
     "parse": "^2.11.0",
     "phoenix": "^1.5.1",
